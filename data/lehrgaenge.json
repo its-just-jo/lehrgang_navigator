@@ -1,0 +1,154 @@
+[
+  {
+    "id": "rettungsschwimmer_bronze",
+    "name": "Rettungsschwimmer Bronze",
+    "description": "Grundschein der DLRG als Einstieg in den Wasserrettungsdienst.",
+    "category": "Basisausbildung",
+    "duration_hours": 16,
+    "prerequisites": []
+  },
+  {
+    "id": "rettungsschwimmer_silber",
+    "name": "Rettungsschwimmer Silber",
+    "description": "Vertiefung der Rettungsschwimmtechniken mit Fokus auf Einsatzfähigkeit im WRD.",
+    "category": "Basisausbildung",
+    "duration_hours": 18,
+    "prerequisites": ["rettungsschwimmer_bronze"]
+  },
+  {
+    "id": "grundausbildung_wasserrettungsdienst",
+    "name": "Grundausbildung Wasserrettungsdienst",
+    "description": "Einführung in Organisation, Technik und Einsatzabläufe des Wasserrettungsdienstes.",
+    "category": "Einsatz",
+    "duration_hours": 24,
+    "prerequisites": ["rettungsschwimmer_silber"]
+  },
+  {
+    "id": "sanitaetsausbildung_a",
+    "name": "Sanitätsausbildung A",
+    "description": "Grundlagen der Notfallversorgung für Einsatzkräfte an Land und auf dem Wasser.",
+    "category": "Medizin",
+    "duration_hours": 48,
+    "prerequisites": ["grundausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "sanitaetsausbildung_b",
+    "name": "Sanitätsausbildung B",
+    "description": "Erweiterte Notfallmedizin inklusive Trauma- und Reanimationstraining.",
+    "category": "Medizin",
+    "duration_hours": 40,
+    "prerequisites": ["sanitaetsausbildung_a"]
+  },
+  {
+    "id": "fachausbildung_wasserrettungsdienst",
+    "name": "Fachausbildung Wasserrettungsdienst",
+    "description": "Taktische Ausbildung für Einsätze an der Küste, am Binnengewässer und im Katastrophenschutz.",
+    "category": "Einsatz",
+    "duration_hours": 28,
+    "prerequisites": ["sanitaetsausbildung_a", "grundausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "einsatzkraft_wasserrettung",
+    "name": "Einsatzkraft Wasserrettungsdienst",
+    "description": "Qualifikation zur aktiven Mitarbeit in Wachgruppen und bei Einsätzen.",
+    "category": "Einsatz",
+    "duration_hours": 16,
+    "prerequisites": ["fachausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "bootsfuehrer_anwaerter",
+    "name": "Fachausbildung Bootsdienst",
+    "description": "Bedienen von Rettungsbooten, Navigation und Manövertraining im Wasserrettungsdienst.",
+    "category": "Bootsdienst",
+    "duration_hours": 40,
+    "prerequisites": ["fachausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "bootfuehrer_wasserrettungsdienst",
+    "name": "Bootsführer im Wasserrettungsdienst",
+    "description": "Führen von Einsatzbooten inklusive Einsatzplanung und Crewführung.",
+    "category": "Bootsdienst",
+    "duration_hours": 24,
+    "prerequisites": ["bootsfuehrer_anwaerter"]
+  },
+  {
+    "id": "segelausbildung",
+    "name": "Fachausbildung Segeln",
+    "description": "Erwerb seglerischer Fachkenntnisse für den Küsten- und Binnenbereich.",
+    "category": "Bootsdienst",
+    "duration_hours": 20,
+    "prerequisites": ["fachausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "leitung_wachdienst",
+    "name": "Leitung Wasserrettungsdienst (Wachführer)",
+    "description": "Organisation von Wachmannschaften und Steuerung des Wasserrettungsdienstes vor Ort.",
+    "category": "Führung",
+    "duration_hours": 16,
+    "prerequisites": ["einsatzkraft_wasserrettung"]
+  },
+  {
+    "id": "einsatzleiter_wasserrettung",
+    "name": "Einsatzleiter Wasserrettungsdienst",
+    "description": "Gesamtverantwortung für komplexe Wasserrettungseinsätze inklusive Lageführung.",
+    "category": "Führung",
+    "duration_hours": 32,
+    "prerequisites": ["leitung_wachdienst", "bootfuehrer_wasserrettungsdienst"]
+  },
+  {
+    "id": "rettungstaucher_1",
+    "name": "Rettungstaucher Stufe 1",
+    "description": "Tauchgrundlagen, Suchmethoden und Rettungstechniken bis 20 Meter Tiefe.",
+    "category": "Tauchen",
+    "duration_hours": 70,
+    "prerequisites": ["sanitaetsausbildung_a", "fachausbildung_wasserrettungsdienst"]
+  },
+  {
+    "id": "rettungstaucher_2",
+    "name": "Rettungstaucher Stufe 2",
+    "description": "Einsatz- und Führungstechniken für anspruchsvolle Tauchgänge.",
+    "category": "Tauchen",
+    "duration_hours": 80,
+    "prerequisites": ["rettungstaucher_1"]
+  },
+  {
+    "id": "einsatztaucher_fuehrung",
+    "name": "Taucheinsatzführer",
+    "description": "Planung und Leitung von Taucheinsätzen einschließlich Sicherheit und Dokumentation.",
+    "category": "Führung",
+    "duration_hours": 24,
+    "prerequisites": ["rettungstaucher_2"]
+  },
+  {
+    "id": "einsatztaucher_san",
+    "name": "Spezialmodul Tauchmedizin",
+    "description": "Medizinische Versorgung und Prävention spezieller Taucheinsatzrisiken.",
+    "category": "Tauchen",
+    "duration_hours": 12,
+    "prerequisites": ["rettungstaucher_1", "sanitaetsausbildung_b"]
+  },
+  {
+    "id": "stromrettung_modul1",
+    "name": "Strömungsrettung Modul 1",
+    "description": "Grundlagen zur Rettung in fließenden Gewässern inklusive Materialkunde.",
+    "category": "Spezialisierung",
+    "duration_hours": 24,
+    "prerequisites": ["einsatzkraft_wasserrettung"]
+  },
+  {
+    "id": "stromrettung_modul2",
+    "name": "Strömungsrettung Modul 2",
+    "description": "Fortgeschrittene Strömungstechniken und Führung kleiner Rettungstrupps.",
+    "category": "Spezialisierung",
+    "duration_hours": 24,
+    "prerequisites": ["stromrettung_modul1"]
+  },
+  {
+    "id": "einsatznachsorge_helfer",
+    "name": "Einsatznachsorge Helfer",
+    "description": "Psychosoziale Unterstützung für Einsatzkräfte nach belastenden Lagen.",
+    "category": "Unterstützung",
+    "duration_hours": 16,
+    "prerequisites": ["einsatzkraft_wasserrettung"]
+  }
+]
