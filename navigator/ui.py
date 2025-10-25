@@ -34,6 +34,29 @@ html, body, [class*="block-container"] {{
     letter-spacing: 0.01em;
 }}
 
+div[data-testid="stMetricLabel"] {{
+    color: rgba(0, 43, 69, 0.75);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}}
+
+div[data-testid="stMetricValue"] {{
+    color: {DARK_BLUE};
+}}
+
+[data-testid="stSidebarNav"] a:first-child span {{
+    visibility: hidden;
+    position: relative;
+}}
+
+[data-testid="stSidebarNav"] a:first-child span::after {{
+    content: "Navigator";
+    visibility: visible;
+    position: absolute;
+    inset: 0;
+}}
+
 .hero {{
     background: linear-gradient(135deg, {PRIMARY_RED} 0%, {MID_BLUE} 100%);
     border-radius: 16px;
@@ -182,6 +205,7 @@ html, body, [class*="block-container"] {{
     padding: 1rem 1.2rem;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
 }}
 
 .network-node:hover {{
@@ -195,20 +219,6 @@ html, body, [class*="block-container"] {{
     margin-bottom: 0.35rem;
 }}
 
-.network-node .network-meta {{
-    font-size: 0.85rem;
-    color: rgba(0, 0, 0, 0.7);
-}}
-
-.network-node ul {{
-    margin: 0.75rem 0 0;
-    padding-left: 1.2rem;
-    color: rgba(0, 0, 0, 0.74);
-}}
-
-.network-node li {{
-    margin-bottom: 0.35rem;
-}}
 </style>
 """
 
