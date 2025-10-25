@@ -6,11 +6,12 @@ import streamlit as st
 
 from .models import Course
 
-PRIMARY_RED = "#e2001a"
+PRIMARY_RED = "#d40511"
 SECONDARY_YELLOW = "#ffed00"
-DARK_BLUE = "#00335a"
-BACKGROUND_GRAY = "#f5f5f5"
-LIGHT_GRAY = "#fafafa"
+DARK_BLUE = "#002b45"
+MID_BLUE = "#005b7f"
+BACKGROUND_GRAY = "#f2f4f7"
+LIGHT_GRAY = "#ffffff"
 
 
 CUSTOM_CSS = f"""
@@ -20,8 +21,8 @@ html, body, [class*="block-container"] {{
 }}
 
 .stApp {{
-    background: linear-gradient(180deg, rgba(226, 0, 26, 0.08) 0%, rgba(226, 0, 26, 0) 60%),
-                linear-gradient(180deg, rgba(0, 51, 90, 0.05) 0%, rgba(0, 51, 90, 0) 100%),
+    background: linear-gradient(180deg, rgba(212, 5, 17, 0.08) 0%, rgba(212, 5, 17, 0) 65%),
+                linear-gradient(180deg, rgba(0, 91, 127, 0.06) 0%, rgba(0, 91, 127, 0) 100%),
                 {BACKGROUND_GRAY};
     color: {DARK_BLUE};
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -34,7 +35,7 @@ html, body, [class*="block-container"] {{
 }}
 
 .hero {{
-    background: linear-gradient(135deg, {PRIMARY_RED} 0%, {DARK_BLUE} 100%);
+    background: linear-gradient(135deg, {PRIMARY_RED} 0%, {MID_BLUE} 100%);
     border-radius: 16px;
     padding: 3rem;
     color: white;
@@ -57,7 +58,7 @@ html, body, [class*="block-container"] {{
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: white;
+    background: {SECONDARY_YELLOW};
     color: {DARK_BLUE};
     border-radius: 999px;
     padding: 0.4rem 0.9rem;
@@ -69,7 +70,7 @@ html, body, [class*="block-container"] {{
 .selection-card {{
     background: {LIGHT_GRAY};
     border-radius: 16px;
-    border: 1px solid rgba(0, 51, 90, 0.1);
+    border: 1px solid rgba(0, 43, 69, 0.1);
     padding: 1.5rem;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     height: 100%;
@@ -120,7 +121,7 @@ html, body, [class*="block-container"] {{
     background: white;
     border: 4px solid {PRIMARY_RED};
     border-radius: 50%;
-    box-shadow: 0 0 0 6px rgba(226, 0, 26, 0.15);
+    box-shadow: 0 0 0 6px rgba(212, 5, 17, 0.15);
 }}
 
 .timeline-step h4 {{
@@ -152,6 +153,61 @@ html, body, [class*="block-container"] {{
     margin-top: 3rem;
     font-size: 0.9rem;
     color: rgba(0, 0, 0, 0.55);
+}}
+
+.network-grid {{
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    margin-top: 2rem;
+}}
+
+.network-column {{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}}
+
+.network-column h3 {{
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: {MID_BLUE};
+}}
+
+.network-node {{
+    background: white;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 43, 69, 0.12);
+    padding: 1rem 1.2rem;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}}
+
+.network-node:hover {{
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+}}
+
+.network-node strong {{
+    color: {PRIMARY_RED};
+    display: block;
+    margin-bottom: 0.35rem;
+}}
+
+.network-node .network-meta {{
+    font-size: 0.85rem;
+    color: rgba(0, 0, 0, 0.7);
+}}
+
+.network-node ul {{
+    margin: 0.75rem 0 0;
+    padding-left: 1.2rem;
+    color: rgba(0, 0, 0, 0.74);
+}}
+
+.network-node li {{
+    margin-bottom: 0.35rem;
 }}
 </style>
 """
