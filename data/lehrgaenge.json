@@ -1,4 +1,20 @@
-[
+[  
+  {
+    "id": "sanitaetsausbildung_a",
+    "name": "Sanitäter A",
+    "description": "Sanitätshelfer der DLRG",
+    "category": "Sanitätswesen",
+    "duration_hours": 16,
+    "prerequisites": []
+  },
+    {
+    "id": "sanitaetsausbildung_b",
+    "name": "Sanitäter B",
+    "description": "Sanitäter der DLRG",
+    "category": "Sanitätswesen",
+    "duration_hours": 16,
+    "prerequisites": []
+  },
   {
     "id": "rettungsschwimmer_bronze",
     "name": "Rettungsschwimmer Bronze",
