@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-from collections import defaultdict
-from collections.abc import Mapping
-from functools import lru_cache
-
 import streamlit as st
+
+from graphviz import Digraph
 
 from navigator import load_course_map
 from navigator.models import Course
@@ -27,64 +25,99 @@ CATEGORY_STYLES: dict[str, tuple[str, str]] = {
     "Unterstützung": ("#e9f8ea", "#1f7a1f"),
 }
 
-LEVEL_NAMES = [
-    "Stufe 1 · Grundlagen",
-    "Stufe 2 · Aufbau",
-    "Stufe 3 · Vertiefung",
-    "Stufe 4 · Spezialisierung",
-]
+def _build_course_graph(courses: dict[str, Course]) -> Digraph:
+    """Build a force-directed graph showing course dependencies."""
+
+    graph = Digraph("lehrgang_mesh", engine="sfdp")
+    graph.attr(
+        pad="0.6",
+        overlap="false",
+        splines="true",
+        sep="0.7",
+    )
+    graph.attr(
+        "node",
+        shape="box",
+        style="rounded,filled",
+        fontname="Helvetica",
+        fontsize="10",
+        fontcolor="#1f2933",
+    )
+    graph.attr(
+        "edge",
+        color="#8f9aa7",
+        penwidth="1.4",
+        arrowsize="0.6",
+    )
+
+    for course in sorted(courses.values(), key=lambda item: item.name):
+        background, accent = CATEGORY_STYLES.get(
+            course.category, ("#ffffff", PRIMARY_RED)
+        )
+        graph.node(
+            course.id,
+            label=course.name,
+            fillcolor=background,
+            color=accent,
+            penwidth="2",
+        )
+
+    for course in courses.values():
+        for prereq in course.prerequisites:
+            if prereq in courses:
+                graph.edge(prereq, course.id)
+
+    return graph
 
 
-def _level_name(level: int) -> str:
-    if level < len(LEVEL_NAMES):
-        return LEVEL_NAMES[level]
-    return f"Stufe {level + 1}"
+def _render_category_legend() -> None:
+    """Render a colour legend for the course categories."""
 
+    st.markdown(
+        """
+        <style>
+            .category-legend {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-top: 1.5rem;
+            }
+            .category-legend-item {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 999px;
+                padding: 0.35rem 0.75rem;
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+                font-size: 0.85rem;
+                color: #1f2933;
+            }
+            .category-legend-swatch {
+                width: 14px;
+                height: 14px;
+                border-radius: 3px;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
-def _group_courses_by_level(courses: Mapping[str, Course]) -> dict[int, list[Course]]:
-    @lru_cache(maxsize=None)
-    def level(course_id: str) -> int:
-        course = courses[course_id]
-        relevant_prereqs = [pid for pid in course.prerequisites if pid in courses]
-        if not relevant_prereqs:
-            return 0
-        return 1 + max(level(pid) for pid in relevant_prereqs)
-
-    grouped: dict[int, list[Course]] = defaultdict(list)
-    for course_id, course in courses.items():
-        grouped[level(course_id)].append(course)
-    for bucket in grouped.values():
-        bucket.sort(key=lambda item: item.name)
-    return dict(sorted(grouped.items()))
-
-
-def _render_network(columns: Mapping[int, list[Course]], courses: Mapping[str, Course]) -> None:
-    column_html: list[str] = []
-    for level, entries in columns.items():
-        node_html: list[str] = []
-        for course in entries:
-            background, accent = CATEGORY_STYLES.get(
-                course.category, ("#ffffff", PRIMARY_RED)
-            )
-            node_html.append(
-                (
-                    "<div class='network-node' "
-                    f"style='background:{background}; border-top:4px solid {accent};'>"
-                    f"<strong>{course.name}</strong>"
-                    "</div>"
-                )
-            )
-        column_html.append(
+    legend_items: list[str] = []
+    for name, (_, accent) in CATEGORY_STYLES.items():
+        legend_items.append(
             (
-                "<div class='network-column'>"
-                f"<h3>{_level_name(level)}</h3>"
-                f"{''.join(node_html)}"
+                "<div class='category-legend-item'>"
+                f"<span class='category-legend-swatch' style='background:{accent};'></span>"
+                f"{name}"
                 "</div>"
             )
         )
 
-    grid_html = "<div class='network-grid'>" + "".join(column_html) + "</div>"
-    st.markdown(grid_html, unsafe_allow_html=True)
+    st.markdown(
+        "<div class='category-legend'>" + "".join(legend_items) + "</div>",
+        unsafe_allow_html=True,
+    )
 
 
 def main() -> None:
@@ -99,8 +132,9 @@ def main() -> None:
     )
 
     course_map = load_course_map()
-    columns = _group_courses_by_level(course_map)
-    _render_network(columns, course_map)
+    graph = _build_course_graph(course_map)
+    st.graphviz_chart(graph)
+    _render_category_legend()
 
     st.markdown(
         """

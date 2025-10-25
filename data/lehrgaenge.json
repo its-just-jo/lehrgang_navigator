@@ -71,6 +71,18 @@
     "prerequisites": ["bootsfuehrer_anwaerter"]
   },
   {
+    "id": "einsatzleiter_wasserrettung",
+    "name": "432 Einsatzleiter Wasserrettung",
+    "description": "Koordiniert komplexe Einsätze des Wasserrettungsdienstes und führt gemischte Einsatzgruppen.",
+    "category": "Führung",
+    "duration_hours": 24,
+    "prerequisites": [
+      "leitung_wachdienst",
+      "bootfuehrer_wasserrettungsdienst",
+      "einsatzkraft_wasserrettung"
+    ]
+  },
+  {
     "id": "leitung_wachdienst",
     "name": "431 Wachführer",
     "description": "Organisation von Wachmannschaften und Steuerung des Wasserrettungsdienstes vor Ort.",
@@ -112,6 +124,27 @@
     "category": "Aufbaumodul",
     "duration_hours": 5,
     "prerequisites": ["basisausbildung_einsatzdienste", "rettungsschwimmer_bronze"]
+  },
+  {
+    "id": "rettungstaucher_1",
+    "name": "441 Rettungstaucher 1",
+    "description": "Grundlagenausbildung für das Tauchen im Wasserrettungsdienst inklusive Einsatztaktik und Materialkunde.",
+    "category": "Tauchen",
+    "duration_hours": 60,
+    "prerequisites": [
+      "fachausbildung_wasserrettungsdienst",
+      "sanitaetsausbildung_a",
+      "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "rettungsschwimmer_silber"
+    ]
+  },
+  {
+    "id": "rettungstaucher_2",
+    "name": "442 Rettungstaucher 2",
+    "description": "Aufbaulehrgang für erfahrene Einsatztaucher mit Fokus auf komplexe Lagen und Einsatzführung unter Wasser.",
+    "category": "Tauchen",
+    "duration_hours": 45,
+    "prerequisites": ["rettungstaucher_1"]
   },
   {
     "id": "fuehrungslehre_ausbildung",
