@@ -41,11 +41,18 @@
   },
   {
     "id": "fachausbildung_wasserrettungsdienst",
-    "name": "Fachausbildung Wasserrettungsdienst",
+    "name": "411 Wasserretter (Fachausbildung Wasserrettungsdienst)",
     "description": "Taktische Ausbildung für Einsätze an der Küste, am Binnengewässer und im Katastrophenschutz.",
     "category": "Einsatz",
     "duration_hours": 28,
-    "prerequisites": ["sanitaetsausbildung_a", "grundausbildung_wasserrettungsdienst"]
+    "prerequisites": [
+      "sanitaetsausbildung_a",
+      "basisausbildung_einsatzdienste",
+      "aufbaumodul_rettungsgeraete",
+      "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "aufbaumodul_einsatz_kuestengewaesser",
+      "rettungsschwimmer_silber"
+    ]
   },
   {
     "id": "einsatzkraft_wasserrettung",
@@ -81,11 +88,14 @@
   },
   {
     "id": "leitung_wachdienst",
-    "name": "Leitung Wasserrettungsdienst (Wachführer)",
+    "name": "431 Wachführer",
     "description": "Organisation von Wachmannschaften und Steuerung des Wasserrettungsdienstes vor Ort.",
     "category": "Führung",
     "duration_hours": 16,
-    "prerequisites": ["einsatzkraft_wasserrettung"]
+    "prerequisites": [
+      "fachausbildung_wasserrettungsdienst",
+      "fuehrungslehre_ausbildung"
+    ]
   },
   {
     "id": "einsatzleiter_wasserrettung",
@@ -150,5 +160,71 @@
     "category": "Unterstützung",
     "duration_hours": 16,
     "prerequisites": ["einsatzkraft_wasserrettung"]
+  }
+
+  ,
+  {
+    "id": "basisausbildung_einsatzdienste",
+    "name": "401 Basisausbildung Einsatzdienste",
+    "description": "Grundausbildung vor dem Einsatz in den Einsatzdiensten der DLRG; vermittelt fachübergreifende Grundlagen und ist Voraussetzung für weitergehende Lehrgänge und Prüfungen.",
+    "category": "Basisausbildung",
+    "duration_hours": 22,
+    "prerequisites": []
+  },
+  {
+    "id": "aufbaumodul_rettungsgeraete",
+    "name": "402 Aufbaumodul \u201eUmgang mit Rettungsgeräten und Überwachung von Wasserflächen\u201c",
+    "description": "Vertiefung im sicheren Umgang mit Rettungsgeräten und der Überwachung von Wasserflächen; richtet sich an Einsatzkräfte in Wasserrettungsdienst, Strömungsrettung, Katastrophenschutz und Bootsdienst.",
+    "category": "Aufbaumodul",
+    "duration_hours": 5,
+    "prerequisites": ["basisausbildung_einsatzdienste", "rettungsschwimmer_bronze"]
+  },
+  {
+    "id": "aufbaumodul_schwimmen_fliessende_gewaesser",
+    "name": "403 Aufbaumodul \u201eSchwimmen in fließenden Gewässern\u201c",
+    "description": "Schult das sichere Schwimmen und Verhalten in Fließgewässern; Voraussetzung für weiterführende Lehrgänge und Einsätze in Strömungsrettung oder Tauchen.",
+    "category": "Aufbaumodul",
+    "duration_hours": 3,
+    "prerequisites": ["basisausbildung_einsatzdienste", "rettungsschwimmer_bronze"]
+  },
+  {
+    "id": "aufbaumodul_einsatz_kuestengewaesser",
+    "name": "404 Aufbaumodul \u201eEinsatz in Küstengewässern\u201c",
+    "description": "Bereitet Einsatzkräfte auf Aufgaben in Küstengewässern vor; Voraussetzung für weitergehende Lehrgänge im Wasserrettungsdienst oder Bootsdienst.",
+    "category": "Aufbaumodul",
+    "duration_hours": 5,
+    "prerequisites": ["basisausbildung_einsatzdienste", "rettungsschwimmer_bronze"]
+  },
+  {
+    "id": "fuehrungslehre_ausbildung",
+    "name": "421 Führungslehre-Ausbildung",
+    "description": "Vermittelt die Grundlagen der Führung im Wasserrettungsdienst; Grundlage für alle Führungsausbildungen und sollte frühzeitig absolviert werden.",
+    "category": "Führung",
+    "duration_hours": 8,
+    "prerequisites": ["basisausbildung_einsatzdienste"]
+  },
+  {
+    "id": "ausbilder_wasserrettungsdienst",
+    "name": "481 Ausbilder Wasserrettungsdienst",
+    "description": "Qualifiziert erfahrene Wachführer zur verantwortlichen Ausbildung von Wasserrettern; umfasst didaktisch‑methodische Grundlagen und praktische Erfahrung.",
+    "category": "Ausbilder",
+    "duration_hours": 20,
+    "prerequisites": ["leitung_wachdienst"]
+  },
+  {
+    "id": "multiplikatorenschulung_allgemein",
+    "name": "490 Allgemeine Multiplikatorenschulung",
+    "description": "Vermittelt didaktisch‑methodische Kenntnisse sowie vereinsbezogene Inhalte als Vorbereitung auf Multiplikatorentätigkeiten in der DLRG.",
+    "category": "Multiplikator",
+    "duration_hours": 16,
+    "prerequisites": []
+  },
+  {
+    "id": "multiplikator_wasserrettungsdienst",
+    "name": "491 Multiplikator Wasserrettungsdienst",
+    "description": "Bereitet erfahrene Ausbilder darauf vor, Ausbilder im Wasserrettungsdienst fortzubilden; setzt die allgemeine Multiplikatorenschulung und die Ausbilderqualifikation voraus.",
+    "category": "Multiplikator",
+    "duration_hours": 16,
+    "prerequisites": ["multiplikatorenschulung_allgemein", "ausbilder_wasserrettungsdienst"]
   }
 ]
