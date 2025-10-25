@@ -10,6 +10,31 @@ class CycleError(ValueError):
     """Raised when the course catalogue contains circular dependencies."""
 
 
+CASCADE_COMPLETION_IDS = {"fachausbildung_wasserrettungsdienst"}
+
+
+def _expand_completed(
+    completed_ids: Iterable[str], course_map: Mapping[str, Course]
+) -> set[str]:
+    """Return completed ids while cascading selected course prerequisites."""
+
+    expanded: set[str] = set()
+    stack = [*completed_ids]
+
+    while stack:
+        course_id = stack.pop()
+        if course_id in expanded:
+            continue
+        expanded.add(course_id)
+        course = course_map.get(course_id)
+        if course is None:
+            continue
+        if course_id in CASCADE_COMPLETION_IDS:
+            stack.extend(course.prerequisites)
+
+    return expanded
+
+
 def collect_required_courses(
     target_ids: Iterable[str],
     course_map: Mapping[str, Course],
@@ -17,7 +42,7 @@ def collect_required_courses(
 ) -> set[str]:
     """Return the ids required to reach all targets starting from completed ids."""
 
-    completed = set(completed_ids or [])
+    completed = _expand_completed(completed_ids or [], course_map)
     required: set[str] = set()
 
     def dfs(course_id: str) -> None:
@@ -42,7 +67,7 @@ def build_learning_path(
 ) -> list[Course]:
     """Return an ordered list of courses needed to reach the selected targets."""
 
-    completed = set(completed_ids or [])
+    completed = _expand_completed(completed_ids or [], course_map)
     required_ids = collect_required_courses(target_ids, course_map, completed)
     ordered_ids = _topological_sort(required_ids, course_map, completed)
     return [course_map[course_id] for course_id in ordered_ids]

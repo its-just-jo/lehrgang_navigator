@@ -66,36 +66,21 @@ def _render_network(columns: Mapping[int, list[Course]], courses: Mapping[str, C
             background, accent = CATEGORY_STYLES.get(
                 course.category, ("#ffffff", PRIMARY_RED)
             )
-            prereq_names = [courses[pid].name for pid in course.prerequisites if pid in courses]
-            prereq_html = "".join(f"<li>{name}</li>" for name in prereq_names)
-            if prereq_html:
-                prereq_block = (
-                    "<div class='network-meta'><strong>Voraussetzungen</strong></div>"
-                    f"<ul>{prereq_html}</ul>"
-                )
-            else:
-                prereq_block = (
-                    "<div class='network-meta'>Keine Voraussetzungen notwendig.</div>"
-                )
-
-            description = (
-                f"<div class='network-meta'>{course.description}</div>"
-                if course.description
-                else ""
-            )
-
             node_html.append(
-                f"""
-                <div class='network-node' style='background:{background}; border-top:4px solid {accent};'>
-                    <strong>{course.name}</strong>
-                    <div class='network-meta'>{course.category}</div>
-                    {description}
-                    {prereq_block}
-                </div>
-                """
+                (
+                    "<div class='network-node' "
+                    f"style='background:{background}; border-top:4px solid {accent};'>"
+                    f"<strong>{course.name}</strong>"
+                    "</div>"
+                )
             )
         column_html.append(
-            f"<div class='network-column'><h3>{_level_name(level)}</h3>{''.join(node_html)}</div>"
+            (
+                "<div class='network-column'>"
+                f"<h3>{_level_name(level)}</h3>"
+                f"{''.join(node_html)}"
+                "</div>"
+            )
         )
 
     grid_html = "<div class='network-grid'>" + "".join(column_html) + "</div>"
