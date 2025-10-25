@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
-import streamlit as st
+import importlib
 
 from .models import Course
 
@@ -213,15 +213,29 @@ html, body, [class*="block-container"] {{
 """
 
 
+def _load_streamlit():
+    """Return the Streamlit module or raise a helpful error if unavailable."""
+
+    try:
+        return importlib.import_module("streamlit")
+    except ModuleNotFoundError as exc:  # pragma: no cover - defensive branch
+        raise RuntimeError(
+            "Streamlit ist erforderlich, um die UI-Helfer zu verwenden. "
+            "Bitte installiere streamlit oder starte die Anwendung mit 'streamlit run'."
+        ) from exc
+
+
 def inject_custom_css() -> None:
     """Inject the DLRG-themed stylesheet into the Streamlit app."""
 
+    st = _load_streamlit()
     st.markdown(CUSTOM_CSS, unsafe_allow_html=True)
 
 
 def render_timeline(path: Iterable[Course]) -> None:
     """Render a vertical timeline for the planned course path."""
 
+    st = _load_streamlit()
     st.markdown("<div class='timeline'>", unsafe_allow_html=True)
     for course in path:
         st.markdown(
@@ -239,6 +253,7 @@ def render_timeline(path: Iterable[Course]) -> None:
 def render_course_overview(courses: Iterable[Course]) -> None:
     """Display a card-based overview of the provided courses."""
 
+    st = _load_streamlit()
     for course in courses:
         st.markdown(
             f"""
