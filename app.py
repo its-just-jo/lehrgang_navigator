@@ -1,134 +1,85 @@
+"""Public Streamlit interface for the Ausbildungsnavigator."""
+
 from __future__ import annotations
 
-from collections.abc import Iterable
-
+import graphviz
 import streamlit as st
 
-from navigator import build_learning_path, load_course_map, load_courses
-from navigator.models import Course
-from navigator.ui import inject_custom_css, render_course_overview, render_timeline
-
-st.set_page_config(
-    page_title="DLRG Lehrgangs-Navigator",
-    page_icon="🚤",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+from navigator import catalog, routing, styling
+from navigator.models import CatalogState, QualificationStatus
+from navigator.repo import CatalogRepository
 
 
-def _course_lookup(courses: Iterable[Course]) -> dict[str, Course]:
-    """Create a name-based lookup for the provided course catalogue."""
-
-    return {course.name: course for course in sorted(courses, key=lambda course: course.name)}
+st.set_page_config(page_title="DLRG Ausbildungsnavigator", page_icon="🛟", layout="wide")
 
 
-def _render_hero() -> None:
-    """Render the hero section with project context."""
-    st.markdown(
-        """
-        <div class="hero">
-            <div class="badge">🚑 Lehrgangsplanung nach Prüfungsordnung WRD 2018</div>
-            <h1>Dein DLRG Lehrgangs-Navigator</h1>
-            <p>
-                Wähle deine vorhandenen Qualifikationen und dein Ziel – wir berechnen den optimalen
-                Lehrgangspfad gemäß der aktuellen Prüfungsordnung Wasserrettungsdienst.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-
-def _render_selection(current: dict[str, Course]) -> tuple[list[str], list[str]]:
-    """Display selection widgets for completed and desired qualifications."""
-    with st.container():
-        cols = st.columns(2)
-        with cols[0]:
-            st.markdown("<div class='selection-card'>", unsafe_allow_html=True)
-            st.subheader("Aktuelle Qualifikationen")
-            owned = st.multiselect(
-                "Welche Lehrgänge hast du bereits abgeschlossen?",
-                options=list(current.keys()),
-            )
-            st.markdown("</div>", unsafe_allow_html=True)
-        with cols[1]:
-            st.markdown("<div class='selection-card'>", unsafe_allow_html=True)
-            st.subheader("Zielqualifikationen")
-            desired = st.multiselect(
-                "Welche Qualifikationen möchtest du erreichen?",
-                options=list(current.keys()),
-            )
-            st.markdown("</div>", unsafe_allow_html=True)
-    return owned, desired
-
-
-def _render_path(path: list[Course], course_map: dict[str, Course], completed_ids: set[str]) -> None:
-    """Render the calculated learning path including prerequisite insights."""
-    if not path:
-        st.info("Alle ausgewählten Ziele sind bereits abgedeckt – Glückwunsch!")
-        return
-
-    st.markdown("### Empfohlene Reihenfolge")
-    render_timeline(path)
-
-    total_hours = sum(course.duration_hours for course in path)
-    st.metric("Gesamtumfang", f"{total_hours} Unterrichtseinheiten")
-
-    st.markdown("### Details zu allen beteiligten Lehrgängen")
-    render_course_overview(path)
-
-    acquisition = set(completed_ids)
-    prerequisite_info: list[tuple[Course, list[str]]] = []
-    for course in path:
-        missing = [p for p in course.prerequisites if p not in acquisition]
-        prerequisite_info.append((course, missing))
-        acquisition.add(course.id)
-
-    outstanding = [item for item in prerequisite_info if item[1]]
-    if outstanding:
-        with st.expander("Benötigte Voraussetzungen je Lehrgang"):
-            for course, missing_ids in outstanding:
-                readable = ", ".join(course_map[mid].name for mid in missing_ids)
-                st.markdown(f"**{course.name}:** benötigt noch {readable}")
+@st.cache_resource
+def _repository() -> CatalogRepository:
+    return CatalogRepository("data")
 
 
 @st.cache_data(show_spinner=False)
-def _load_catalogue() -> tuple[dict[str, Course], dict[str, Course]]:
-    """Load and cache course information for reuse across interactions."""
-    courses = load_courses()
-    course_map = load_course_map()
-    course_by_name = _course_lookup(courses)
-    return course_map, course_by_name
+def _load_catalog() -> catalog.Catalog:
+    repo = _repository()
+    published = repo.load(CatalogState.PUBLISHED)
+    if not published.qualifications:
+        return repo.load(CatalogState.DRAFT)
+    return published
+
+
+def _render_overview(current_catalog: catalog.Catalog) -> None:
+    stats = catalog.graph_statistics(current_catalog)
+    cols = st.columns(len(stats))
+    for col, (label, value) in zip(cols, stats.items()):
+        col.metric(label.title(), value)
+
+
+def _render_graph(current_catalog: catalog.Catalog) -> None:
+    graph = graphviz.Digraph()
+    active = {q.id: q for q in current_catalog.active_qualifications()}
+    diff = catalog.diff_catalogs(current_catalog, current_catalog)
+    for qualification in current_catalog.qualifications:
+        color = styling.diff_color(diff, qualification.id, qualification.status)
+        graph.node(qualification.id, label=qualification.title, style="filled", fillcolor=color)
+
+    for edge in current_catalog.active_edges():
+        graph.edge(edge.src, edge.dst, label=edge.kind.value)
+    st.graphviz_chart(graph)
+
+
+def _render_route(current_catalog: catalog.Catalog) -> None:
+    st.subheader("Navigator")
+    all_active = [q for q in current_catalog.qualifications if q.status != QualificationStatus.DEPRECATED]
+    owned = st.multiselect("Bereits vorhandene Qualifikationen", options=[q.id for q in all_active])
+    target = st.selectbox("Zielqualifikation", options=[q.id for q in all_active])
+
+    if target:
+        result = routing.route(current_catalog, owned, target)
+        st.markdown(f"### Empfohlene Reihenfolge für **{target}**")
+        if result["missing"]:
+            st.write(" → ".join(result["missing"] + [target]))
+        else:
+            st.success("Alle Voraussetzungen erfüllt.")
+
+        with st.expander("Detailansicht"):
+            st.json(result)
 
 
 def main() -> None:
-    """Streamlit entry point for the course planning application."""
-    inject_custom_css()
-    _render_hero()
+    catalog_data = _load_catalog()
+    st.title("DLRG Ausbildungsnavigator")
+    st.caption("Interaktives Routing durch den Ausbildungs-Katalog")
 
-    course_map, course_by_name = _load_catalogue()
+    _render_overview(catalog_data)
 
-    owned_names, desired_names = _render_selection(course_by_name)
-    owned_ids = {course_by_name[name].id for name in owned_names}
-    desired_ids = {course_by_name[name].id for name in desired_names}
+    tabs = st.tabs(["Navigator", "Qualifikationen"])
+    with tabs[0]:
+        _render_route(catalog_data)
 
-    if not desired_ids:
-        st.warning("Bitte wähle mindestens eine Zielqualifikation aus, um den Pfad zu berechnen.")
-        return
-
-    path = build_learning_path(desired_ids, course_map, completed_ids=owned_ids)
-    _render_path(path, course_map, owned_ids)
-
-    st.markdown(
-        """
-        <div class="footer-hint">
-            Alle Angaben basieren auf der <a href="https://www.dlrg.de/fileadmin/user_upload/DLRG.de/Fuer-Mitglieder/Einsatz/Pruefungsordnungen/11401204_PO_WRD_2018_internet.pdf" target="_blank">Prüfungsordnung Wasserrettungsdienst 2018</a>.
-            Eine individuelle Beratung durch deine Gliederung bleibt dennoch empfehlenswert.
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    with tabs[1]:
+        _render_graph(catalog_data)
 
 
 if __name__ == "__main__":
     main()
+

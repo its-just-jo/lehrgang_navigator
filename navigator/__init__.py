@@ -1,13 +1,34 @@
-"""Core helpers for the DLRG Lehrgangs-Navigator app."""
+"""DLRG Ausbildungsnavigator core package."""
 
-from .data import load_courses, load_course_map
-from .path import build_learning_path, collect_required_courses
-from .models import Course
+from . import catalog, filters, importer, routing, styling
+from .models import (
+    Catalog,
+    CatalogDiff,
+    CatalogState,
+    Edge,
+    EdgeKind,
+    EdgeStatus,
+    Qualification,
+    QualificationStatus,
+    ValidationIssue,
+    ValidationReport,
+)
 
 __all__ = [
-    "Course",
-    "load_courses",
-    "load_course_map",
-    "collect_required_courses",
-    "build_learning_path",
+    "catalog",
+    "filters",
+    "importer",
+    "routing",
+    "styling",
+    "Catalog",
+    "CatalogDiff",
+    "CatalogState",
+    "Edge",
+    "EdgeKind",
+    "EdgeStatus",
+    "Qualification",
+    "QualificationStatus",
+    "ValidationIssue",
+    "ValidationReport",
 ]
+

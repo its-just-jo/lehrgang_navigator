@@ -31,11 +31,11 @@ Die Streamlit-Oberfläche steht dann ebenfalls unter `http://localhost:8501` ber
 
 ## Projektstruktur
 
-- `app.py` – Hauptseite mit Pfadberechnung und Timeline-Darstellung
-- `pages/1_📊_Netzplan.py` – Zusatzseite mit Graphviz-Netzplan aller Lehrgänge
-- `data/lehrgaenge.json` – Lehrgangskatalog inklusive Abhängigkeiten und Metadaten
-- `navigator/` – Wiederverwendbare Module für Datenzugriff, Pfadlogik und UI-Styling
-- `tests/` – Pytest-Suite zur Sicherung der Pfadberechnung und Datenqualität
+- `app.py` – Nutzeroberfläche mit Routing, Graph-Vorschau und Kennzahlen
+- `admin_app.py` – Admin-Interface für CRUD, Validierung, Import und Versionierung
+- `data/catalog_*.json` – Draft- und Published-Snapshots des Katalogs
+- `navigator/` – Kernmodule (Datenmodell, Validierung, Routing, Import, Repository)
+- `tests/` – Umfangreiche Pytest-Suite für Validierung, Routing, Import und Versionierung
 
 ## Features
 
@@ -43,7 +43,8 @@ Die Streamlit-Oberfläche steht dann ebenfalls unter `http://localhost:8501` ber
 - Auswahl bereits absolvierter Lehrgänge und Zielqualifikationen
 - Automatische Ermittlung sämtlicher nötiger Lehrgänge inklusive Gesamtumfang
 - Graphviz-Netzplan zur Visualisierung der Abhängigkeiten
-- Datenhaltung in einer eigenständigen JSON-Datei für einfache Pflege
+- Admin-Oberfläche mit Login, Validierung, Import, Versionierung & Audit-Trail
+- Datenhaltung in lokal versionierten JSON-Dateien
 
 ## Tests
 
@@ -53,7 +54,7 @@ Automatisierte Tests werden mit `pytest` ausgeführt:
 pytest
 ```
 
-Zusätzlich prüft `python -m compileall app.py navigator pages` die grundlegende Syntax aller Module.
+Zusätzlich prüft `python -m compileall app.py admin_app.py navigator` die grundlegende Syntax aller Module.
 
 ## Continuous Integration
 
