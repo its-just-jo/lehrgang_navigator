@@ -133,6 +133,15 @@ class CatalogRepository:
             )
         return result
 
+    def audit_entries(self, limit: int = 50) -> List[dict]:
+        path = self.root / "audit.log"
+        if not path.exists():
+            return []
+        with path.open("r", encoding="utf-8") as handle:
+            lines = handle.readlines()
+        entries = [json.loads(line) for line in lines[-limit:]]
+        return list(reversed(entries))
+
     # ------------------------------------------------------------------
     def _write_snapshot(
         self,

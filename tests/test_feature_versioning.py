@@ -14,8 +14,10 @@ def _sample_catalog() -> Catalog:
 
 def test_bulk_status_transition():
     base = _sample_catalog()
-    updated = admin.bulk_update_status(base, ["a"], "active")
-    assert any(q.id == "a" and q.status == QualificationStatus.ACTIVE for q in updated.qualifications)
+    updated = admin.bulk_update_status(base, ["a"], "active", user="tester")
+    target = next(q for q in updated.qualifications if q.id == "a")
+    assert target.status == QualificationStatus.ACTIVE
+    assert target.version == 2
 
 
 def test_validation_required_for_publish():

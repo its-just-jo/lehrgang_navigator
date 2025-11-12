@@ -25,12 +25,23 @@ def load_qualifications_from_json(stream: io.TextIOBase) -> List[Qualification]:
     payload = json.load(stream)
     qualifications = []
     for item in payload:
+        title = item.get("title") or item.get("name")
+        if not title:
+            raise ValueError("Qualification entry missing title/name")
+        duration = item.get("duration_hours")
+        try:
+            duration_value = int(duration) if duration not in (None, "") else None
+        except (TypeError, ValueError):
+            duration_value = None
+
         qualifications.append(
             Qualification(
                 id=item.get("id", ""),
-                title=item["title"],
+                title=title,
                 category=item.get("category", ""),
                 tags=list(item.get("tags", [])),
+                description=item.get("description", ""),
+                duration_hours=duration_value,
                 status=QualificationStatus(item.get("status", "draft")),
                 aliases=list(item.get("aliases", [])),
             )
@@ -85,6 +96,10 @@ def deduplicate_import(base: Catalog, imported: Iterable[Qualification]) -> Impo
             updated.append(
                 replace(
                     current,
+                    title=item.title or current.title,
+                    category=item.category or current.category,
+                    description=item.description or current.description,
+                    duration_hours=item.duration_hours or current.duration_hours,
                     tags=sorted(set(current.tags) | set(item.tags)),
                     aliases=sorted(set(current.aliases) | set(item.aliases)),
                 )

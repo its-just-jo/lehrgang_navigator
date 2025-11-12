@@ -1,71 +1,552 @@
 {
   "qualifications": [
     {
-      "id": "grundausbildung",
-      "title": "Grundausbildung Wasserrettung",
-      "category": "Basis",
-      "tags": ["Einstieg"],
+      "id": "sanitaetsausbildung_a",
+      "title": "Sanitäter A",
+      "category": "Sanitätswesen",
+      "tags": [
+        "Sanitätswesen",
+        "Sanitäter"
+      ],
       "status": "active",
-      "aliases": ["GA-WR"],
-      "created_at": "2024-01-01T10:00:00",
-      "updated_at": "2024-01-01T10:00:00",
-      "created_by": "system",
-      "version": 1
-    },
-    {
-      "id": "rettungsschwimmer-silber",
-      "title": "Rettungsschwimmer Silber",
-      "category": "Schwimmen",
-      "tags": ["Silber"],
-      "status": "active",
-      "aliases": ["RS-S"],
-      "created_at": "2024-01-01T10:00:00",
-      "updated_at": "2024-01-01T10:00:00",
-      "created_by": "system",
-      "version": 1
-    },
-    {
-      "id": "san-a",
-      "title": "Sanitätsausbildung A",
-      "category": "Sanitaet",
-      "tags": ["Erste Hilfe"],
-      "status": "draft",
       "aliases": [],
-      "created_at": "2024-01-01T10:00:00",
-      "updated_at": "2024-01-01T10:00:00",
-      "created_by": "system",
+      "description": "Sanitätshelfer der DLRG",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
       "version": 1
     },
     {
-      "id": "bootfuehrer",
-      "title": "Bootsführer",
+      "id": "sanitaetsausbildung_b",
+      "title": "Sanitäter B",
+      "category": "Sanitätswesen",
+      "tags": [
+        "Sanitätswesen",
+        "Sanitäter"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Sanitäter der DLRG",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "rettungsschwimmer_bronze",
+      "title": "Rettungsschwimmer Bronze",
+      "category": "Basisausbildung",
+      "tags": [
+        "Basisausbildung",
+        "Rettungsschwimmer"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Grundschein der DLRG als Einstieg in den Wasserrettungsdienst.",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "rettungsschwimmer_silber",
+      "title": "Rettungsschwimmer Silber",
+      "category": "Basisausbildung",
+      "tags": [
+        "Basisausbildung",
+        "Rettungsschwimmer"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Vertiefung der Rettungsschwimmtechniken mit Fokus auf Einsatzfähigkeit im WRD.",
+      "duration_hours": 18,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "fachausbildung_wasserrettungsdienst",
+      "title": "411 Wasserretter (Fachausbildung Wasserrettungsdienst)",
       "category": "Einsatz",
-      "tags": ["Boot"],
-      "status": "draft",
-      "aliases": ["Bootsfuehrer"],
-      "created_at": "2024-01-01T10:00:00",
-      "updated_at": "2024-01-01T10:00:00",
-      "created_by": "system",
+      "tags": [
+        "Einsatz",
+        "411"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Taktische Ausbildung für Einsätze an der Küste, am Binnengewässer und im Katastrophenschutz.",
+      "duration_hours": 28,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "einsatzkraft_wasserrettung",
+      "title": "Einsatzkraft Wasserrettungsdienst",
+      "category": "Einsatz",
+      "tags": [
+        "Einsatz",
+        "Einsatzkraft"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Qualifikation zur aktiven Mitarbeit in Wachgruppen und bei Einsätzen.",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "bootsfuehrer_anwaerter",
+      "title": "Fachausbildung Bootsdienst",
+      "category": "Bootsdienst",
+      "tags": [
+        "Bootsdienst",
+        "Fachausbildung"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Bedienen von Rettungsbooten, Navigation und Manövertraining im Wasserrettungsdienst.",
+      "duration_hours": 40,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "bootfuehrer_wasserrettungsdienst",
+      "title": "Bootsführer im Wasserrettungsdienst",
+      "category": "Bootsdienst",
+      "tags": [
+        "Bootsdienst",
+        "Bootsführer"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Führen von Einsatzbooten inklusive Einsatzplanung und Crewführung.",
+      "duration_hours": 24,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "einsatzleiter_wasserrettung",
+      "title": "432 Einsatzleiter Wasserrettung",
+      "category": "Führung",
+      "tags": [
+        "Führung",
+        "432"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Koordiniert komplexe Einsätze des Wasserrettungsdienstes und führt gemischte Einsatzgruppen.",
+      "duration_hours": 24,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "leitung_wachdienst",
+      "title": "431 Wachführer",
+      "category": "Führung",
+      "tags": [
+        "Führung",
+        "431"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Organisation von Wachmannschaften und Steuerung des Wasserrettungsdienstes vor Ort.",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "basisausbildung_einsatzdienste",
+      "title": "401 Basisausbildung Einsatzdienste",
+      "category": "Basisausbildung",
+      "tags": [
+        "Basisausbildung",
+        "401"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Grundausbildung vor dem Einsatz in den Einsatzdiensten der DLRG; vermittelt fachübergreifende Grundlagen und ist Voraussetzung für weitergehende Lehrgänge und Prüfungen.",
+      "duration_hours": 22,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "aufbaumodul_rettungsgeraete",
+      "title": "402 Aufbaumodul Umgang mit Rettungsgeräten und Überwachung von Wasserflächen",
+      "category": "Aufbaumodul",
+      "tags": [
+        "Aufbaumodul",
+        "402"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Vertiefung im sicheren Umgang mit Rettungsgeräten und der Überwachung von Wasserflächen; richtet sich an Einsatzkräfte in Wasserrettungsdienst, Strömungsrettung, Katastrophenschutz und Bootsdienst.",
+      "duration_hours": 5,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "title": "403 Aufbaumodul Schwimmen in fließenden Gewässern",
+      "category": "Aufbaumodul",
+      "tags": [
+        "Aufbaumodul",
+        "403"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Schult das sichere Schwimmen und Verhalten in Fließgewässern; Voraussetzung für weiterführende Lehrgänge und Einsätze in Strömungsrettung oder Tauchen.",
+      "duration_hours": 3,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "aufbaumodul_einsatz_kuestengewaesser",
+      "title": "404 Aufbaumodul Einsatz in Küstengewässern",
+      "category": "Aufbaumodul",
+      "tags": [
+        "Aufbaumodul",
+        "404"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Bereitet Einsatzkräfte auf Aufgaben in Küstengewässern vor; Voraussetzung für weitergehende Lehrgänge im Wasserrettungsdienst oder Bootsdienst.",
+      "duration_hours": 5,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "rettungstaucher_1",
+      "title": "441 Rettungstaucher 1",
+      "category": "Tauchen",
+      "tags": [
+        "Tauchen",
+        "441"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Grundlagenausbildung für das Tauchen im Wasserrettungsdienst inklusive Einsatztaktik und Materialkunde.",
+      "duration_hours": 60,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "rettungstaucher_2",
+      "title": "442 Rettungstaucher 2",
+      "category": "Tauchen",
+      "tags": [
+        "Tauchen",
+        "442"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Aufbaulehrgang für erfahrene Einsatztaucher mit Fokus auf komplexe Lagen und Einsatzführung unter Wasser.",
+      "duration_hours": 45,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "fuehrungslehre_ausbildung",
+      "title": "421 Führungslehre-Ausbildung",
+      "category": "Führung",
+      "tags": [
+        "Führung",
+        "421"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Vermittelt die Grundlagen der Führung im Wasserrettungsdienst; Grundlage für alle Führungsausbildungen und sollte frühzeitig absolviert werden.",
+      "duration_hours": 8,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "ausbilder_wasserrettungsdienst",
+      "title": "481 Ausbilder Wasserrettungsdienst",
+      "category": "Ausbilder",
+      "tags": [
+        "Ausbilder",
+        "481"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Qualifiziert erfahrene Wachführer zur verantwortlichen Ausbildung von Wasserrettern; umfasst didaktisch-methodische Grundlagen und praktische Erfahrung.",
+      "duration_hours": 20,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "multiplikatorenschulung_allgemein",
+      "title": "490 Allgemeine Multiplikatorenschulung",
+      "category": "Multiplikator",
+      "tags": [
+        "Multiplikator",
+        "490"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Vermittelt didaktisch-methodische Kenntnisse sowie vereinsbezogene Inhalte als Vorbereitung auf Multiplikatorentätigkeiten in der DLRG.",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
+      "version": 1
+    },
+    {
+      "id": "multiplikator_wasserrettungsdienst",
+      "title": "491 Multiplikator Wasserrettungsdienst",
+      "category": "Multiplikator",
+      "tags": [
+        "Multiplikator",
+        "491"
+      ],
+      "status": "active",
+      "aliases": [],
+      "description": "Bereitet erfahrene Ausbilder darauf vor, Ausbilder im Wasserrettungsdienst fortzubilden; setzt die allgemeine Multiplikatorenschulung und die Ausbilderqualifikation voraus.",
+      "duration_hours": 16,
+      "created_at": "2024-04-01T10:00:00",
+      "updated_at": "2024-04-01T10:00:00",
+      "created_by": "seed",
       "version": 1
     }
   ],
   "edges": [
     {
-      "src": "grundausbildung",
-      "dst": "san-a",
+      "src": "sanitaetsausbildung_a",
+      "dst": "fachausbildung_wasserrettungsdienst",
       "kind": "hard",
       "note": "",
       "status": "active"
     },
     {
-      "src": "rettungsschwimmer-silber",
-      "dst": "san-a",
-      "kind": "soft",
-      "note": "Empfehlung",
+      "src": "basisausbildung_einsatzdienste",
+      "dst": "fachausbildung_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "aufbaumodul_rettungsgeraete",
+      "dst": "fachausbildung_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "dst": "fachausbildung_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "aufbaumodul_einsatz_kuestengewaesser",
+      "dst": "fachausbildung_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungsschwimmer_silber",
+      "dst": "fachausbildung_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "fachausbildung_wasserrettungsdienst",
+      "dst": "einsatzkraft_wasserrettung",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "einsatzkraft_wasserrettung",
+      "dst": "bootsfuehrer_anwaerter",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "bootsfuehrer_anwaerter",
+      "dst": "bootfuehrer_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "leitung_wachdienst",
+      "dst": "einsatzleiter_wasserrettung",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "bootfuehrer_wasserrettungsdienst",
+      "dst": "einsatzleiter_wasserrettung",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "einsatzkraft_wasserrettung",
+      "dst": "einsatzleiter_wasserrettung",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "fachausbildung_wasserrettungsdienst",
+      "dst": "leitung_wachdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "fuehrungslehre_ausbildung",
+      "dst": "leitung_wachdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "basisausbildung_einsatzdienste",
+      "dst": "aufbaumodul_rettungsgeraete",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungsschwimmer_bronze",
+      "dst": "aufbaumodul_rettungsgeraete",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "basisausbildung_einsatzdienste",
+      "dst": "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungsschwimmer_bronze",
+      "dst": "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "basisausbildung_einsatzdienste",
+      "dst": "aufbaumodul_einsatz_kuestengewaesser",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungsschwimmer_bronze",
+      "dst": "aufbaumodul_einsatz_kuestengewaesser",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "fachausbildung_wasserrettungsdienst",
+      "dst": "rettungstaucher_1",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "sanitaetsausbildung_a",
+      "dst": "rettungstaucher_1",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "aufbaumodul_schwimmen_fliessende_gewaesser",
+      "dst": "rettungstaucher_1",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungsschwimmer_silber",
+      "dst": "rettungstaucher_1",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "rettungstaucher_1",
+      "dst": "rettungstaucher_2",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "basisausbildung_einsatzdienste",
+      "dst": "fuehrungslehre_ausbildung",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "leitung_wachdienst",
+      "dst": "ausbilder_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "multiplikatorenschulung_allgemein",
+      "dst": "multiplikator_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
+      "status": "active"
+    },
+    {
+      "src": "ausbilder_wasserrettungsdienst",
+      "dst": "multiplikator_wasserrettungsdienst",
+      "kind": "hard",
+      "note": "",
       "status": "active"
     }
   ],
   "state": "draft",
-  "created_at": "2024-01-01T10:00:00",
-  "created_by": "system"
+  "created_at": "2024-04-01T10:00:00",
+  "created_by": "seed"
 }

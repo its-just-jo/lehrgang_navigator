@@ -75,6 +75,8 @@ class Qualification:
     title: str
     category: str
     tags: List[str] = field(default_factory=list)
+    description: str = ""
+    duration_hours: Optional[int] = None
     status: QualificationStatus = QualificationStatus.DRAFT
     aliases: List[str] = field(default_factory=list)
     created_at: Optional[datetime] = None
@@ -100,6 +102,8 @@ class Qualification:
             "title": self.title,
             "category": self.category,
             "tags": list(self.tags),
+            "description": self.description,
+            "duration_hours": self.duration_hours,
             "status": self.status.value,
             "aliases": list(self.aliases),
             "created_at": _ts(self.created_at),
@@ -115,6 +119,12 @@ class Qualification:
             title=payload["title"],
             category=payload.get("category", ""),
             tags=list(payload.get("tags", [])),
+            description=payload.get("description", ""),
+            duration_hours=(
+                int(payload["duration_hours"])
+                if payload.get("duration_hours") not in (None, "")
+                else None
+            ),
             status=QualificationStatus(payload.get("status", "draft")),
             aliases=list(payload.get("aliases", [])),
             created_at=_parse_ts(payload.get("created_at")),

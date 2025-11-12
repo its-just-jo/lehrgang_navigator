@@ -46,10 +46,14 @@ def live_cycle_check(catalog: Catalog, new_edge: Edge) -> ValidationReport:
     return validate_catalog(augmented)
 
 
-def bulk_update_status(catalog: Catalog, ids: Iterable[str], status: str) -> Catalog:
-    transition = [
-        apply_status_transition(q, status) if q.id in ids else q for q in catalog.qualifications
-    ]
+def bulk_update_status(catalog: Catalog, ids: Iterable[str], status: str, *, user: str) -> Catalog:
+    transition = []
+    for qualification in catalog.qualifications:
+        if qualification.id in ids:
+            transitioned = apply_status_transition(qualification, status).with_version_bump(user)
+            transition.append(transitioned)
+        else:
+            transition.append(qualification)
     return replace(catalog, qualifications=transition)
 
 
