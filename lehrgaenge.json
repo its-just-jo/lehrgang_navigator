@@ -1,0 +1,956 @@
+{
+  "meta": {
+    "title": "DLRG Qualifikationen – Dependency Graph",
+    "version": "1.0",
+    "stand": "2025-04",
+    "quellen": [
+      "PO Schwimmen/Rettungsschwimmen 13. Auflage, gültig ab 01.01.2025",
+      "PO Strömungsrettung 3. Auflage, 22.03.2023",
+      "PO Medizin April 2022",
+      "PO Tauchen gültig ab 01.01.2021",
+      "PO Sprechfunk gültig ab 01.01.2021",
+      "PO Wasserrettungsdienst 7. Auflage, gültig ab 01.01.2020",
+      "PO Katastrophenschutz 2022",
+      "PO Bootswesen 11. Auflage 2018"
+    ],
+    "kategorien": [
+      "schwimmabzeichen",
+      "rettungsschwimmabzeichen",
+      "wasserrettungsdienst",
+      "stroemungsrettung",
+      "tauchen",
+      "bootswesen",
+      "sprechfunk",
+      "katastrophenschutz",
+      "medizin",
+      "lehrscheine_schwimmen",
+      "lehrscheine_einsatz",
+      "lehrscheine_medizin",
+      "trainer_lizenzen"
+    ]
+  },
+  "nodes": [
+
+    // ─────────────────────────────────────────────
+    // SCHWIMMABZEICHEN
+    // ─────────────────────────────────────────────
+    {
+      "id": "111",
+      "nr": "111",
+      "titel": "Frühschwimmer – Seepferdchen",
+      "beschreibung": "Erste Schwimmqualifikation der DLRG. Nachweis grundlegender Wassersicherheit im Nichtschwimmerbereich: 25 m Schwimmen, Sprung vom Beckenrand, Gegenstand aus schultertiefem Wasser holen.",
+      "kategorie": "schwimmabzeichen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "121",
+      "nr": "121",
+      "titel": "Deutsches Schwimmabzeichen Bronze – Freischwimmer",
+      "beschreibung": "Nachweis sicheren Schwimmens: 200 m in 15 Min., Tieftauchen (~2 m), Paketsprung, Baderegeln. Erst ab hier gilt das Schwimmen als 'sicher' im Sinne der DLRG-PO.",
+      "kategorie": "schwimmabzeichen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "122",
+      "nr": "122",
+      "titel": "Deutsches Schwimmabzeichen Silber",
+      "beschreibung": "400 m in 20 Min., 10 m Streckentauchen, zweimaliges Tieftauchen, Sprung vom 3-m-Brett oder zwei Sprünge vom 1-m-Brett.",
+      "kategorie": "schwimmabzeichen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["121"]
+    },
+    {
+      "id": "123",
+      "nr": "123",
+      "titel": "Deutsches Schwimmabzeichen Gold",
+      "beschreibung": "800 m in 30 Min., 25 m Kraul, 50 m Brust ≤ 1:15, 50 m Rücken, 10 m Streckentauchen aus der Schwimmlage, 50 m Transportschwimmen. Voraussetzung für Junior-Retter.",
+      "kategorie": "schwimmabzeichen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["122"]
+    },
+
+    // ─────────────────────────────────────────────
+    // RETTUNGSSCHWIMMABZEICHEN
+    // ─────────────────────────────────────────────
+    {
+      "id": "141",
+      "nr": "141",
+      "titel": "Junior-Retter",
+      "beschreibung": "Einstieg in die Rettungsschwimmausbildung für Kinder ab 10 Jahren. 100 m kombinierte Lagen, 25 m Achselschleppgriff, Selbst- und Fremdrettung in Freizeitbekleidung. Kein eigenständiges Abzeichen, sondern Vorstufe zum DRSA.",
+      "kategorie": "rettungsschwimmabzeichen",
+      "mindestalter": 10,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["123"]
+    },
+    {
+      "id": "151",
+      "nr": "151",
+      "titel": "DRSA Bronze – Deutsches Rettungsschwimmabzeichen Bronze",
+      "beschreibung": "Grundstufe Rettungsschwimmen. 200 m in 10 Min., 100 m Kleiderschwimmen, 15 m Streckentauchen, Befreiungsgriffe, Schleppen, 3 Min. HLW. Kein Erste-Hilfe-Nachweis erforderlich.",
+      "kategorie": "rettungsschwimmabzeichen",
+      "mindestalter": 12,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "152",
+      "nr": "152",
+      "titel": "DRSA Silber – Deutsches Rettungsschwimmabzeichen Silber",
+      "beschreibung": "Zentrale Schlüsselqualifikation der DLRG. 400 m in 15 Min., 300 m Kleiderschwimmen ≤ 12 Min., 25 m Streckentauchen, Sprung vom 3-m-Brett, kombinierte Rettungsübung mit HLW. Voraussetzung für nahezu alle Einsatzqualifikationen.",
+      "kategorie": "rettungsschwimmabzeichen",
+      "mindestalter": 14,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["311_eh"],
+      "hinweis": "EH-Nachweis darf nicht älter als 2 Jahre sein"
+    },
+    {
+      "id": "153",
+      "nr": "153",
+      "titel": "DRSA Gold – Deutsches Rettungsschwimmabzeichen Gold",
+      "beschreibung": "Höchste Schwimmrettungsstufe. 300 m Flossenschwimmen ≤ 6 Min., 30 m Streckentauchen mit Tellern, Rettungsball-Zielwurf, komplexe Rettungsübung in Kleidung. Selbsterklärung zum Gesundheitszustand verpflichtend.",
+      "kategorie": "rettungsschwimmabzeichen",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["152", "311_eh"],
+      "hinweis": "DRSA Silber und EH-Nachweis müssen jeweils ≤ 2 Jahre alt sein"
+    },
+    {
+      "id": "161",
+      "nr": "161",
+      "titel": "Deutsches Schnorcheltauchabzeichen (DSTA)",
+      "beschreibung": "Verbindet Schwimmausbildung mit Einsatztauchen. 600 m Flossenschwimmen, 30 m Streckentauchen, Maskenübungen ≥ 3 m Tiefe. Doppelrolle: Schwimmabzeichen und Pflichtvoraussetzung für Wasserretter und Einsatztaucher.",
+      "kategorie": "rettungsschwimmabzeichen",
+      "mindestalter": 12,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["151", "aerztl_tauchtauglichkeit"],
+      "hinweis": "Ärztliche Tauchtauglichkeit ≤ 4 Wochen alt"
+    },
+
+    // ─────────────────────────────────────────────
+    // MEDIZIN / ERSTE HILFE
+    // (als Voraussetzungsknoten modelliert)
+    // ─────────────────────────────────────────────
+    {
+      "id": "311_eh",
+      "nr": "311/312",
+      "titel": "Erste-Hilfe-Ausbildung (9 LE)",
+      "beschreibung": "Standard-Erste-Hilfe-Kurs (9 Lehreinheiten) nach BAGEH/DGUV-QS-EH-Standard. Pflichtvoraussetzung für DRSA Silber/Gold und alle Einsatzqualifikationen. Gültigkeit 2 Jahre.",
+      "kategorie": "medizin",
+      "mindestalter": null,
+      "gueltigkeitsjahre": 2,
+      "voraussetzungen": []
+    },
+    {
+      "id": "321_eh_fb",
+      "nr": "321/322",
+      "titel": "Erste-Hilfe-Fortbildung (9 LE)",
+      "beschreibung": "Verlängert den Erste-Hilfe-Nachweis um weitere 2 Jahre. Inhaltlich gleichwertig zur Neuausbildung.",
+      "kategorie": "medizin",
+      "mindestalter": null,
+      "gueltigkeitsjahre": 2,
+      "voraussetzungen": ["311_eh"]
+    },
+    {
+      "id": "331",
+      "nr": "331",
+      "titel": "Sanitätsausbildung A – Sanitätshelfer",
+      "beschreibung": "Erweiterte medizinische Grundausbildung innerhalb der DLRG. Pflichtvoraussetzung für den Wasserretter (411) und höhere Einsatzqualifikationen. Gültigkeit 4 Jahre, verlängerbar durch Sanitätsfortbildung (333).",
+      "kategorie": "medizin",
+      "mindestalter": 14,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["311_eh"],
+      "hinweis": "EH-Nachweis darf nicht älter als 3 Jahre sein"
+    },
+    {
+      "id": "332",
+      "nr": "332",
+      "titel": "Sanitätsausbildung B – Sanitäter",
+      "beschreibung": "Vertiefende Sanitätsausbildung. Pflichtvoraussetzung für den Wachführer (431). Gültigkeit 4 Jahre, verlängerbar durch Sanitätsfortbildung (333).",
+      "kategorie": "medizin",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["331"]
+    },
+    {
+      "id": "333",
+      "nr": "333",
+      "titel": "Sanitätsfortbildung (10 LE)",
+      "beschreibung": "Verlängert die Gültigkeit von San A (331) oder San B (332) um jeweils 4 Jahre.",
+      "kategorie": "medizin",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["331"]
+    },
+
+    // ─────────────────────────────────────────────
+    // WASSERRETTUNGSDIENST
+    // ─────────────────────────────────────────────
+    {
+      "id": "401",
+      "nr": "401",
+      "titel": "Basisausbildung Einsatzdienste",
+      "beschreibung": "Fachübergreifende Grundlage für alle DLRG-Einsatzkräfte. Enthält Sprechfunkunterweisung (710), PSNV-Basis und Erste-Hilfe-Grundlagen. Pflicht vor allen Einsatz-Aufbaumodulen.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": 12,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["dlrg_mitgliedschaft", "aerztl_tauglichkeit"]
+    },
+    {
+      "id": "402",
+      "nr": "402",
+      "titel": "Aufbaumodul – Umgang mit Rettungsgeräten und Überwachung von Wasserflächen",
+      "beschreibung": "Pflichtmodul für Wasserrettungsdienst, Strömungsrettung, KatS/ÖGA und Bootsdienst. Vermittelt den sicheren Umgang mit Rettungsgeräten und die systematische Überwachung von Gewässern.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["401", "151"]
+    },
+    {
+      "id": "403",
+      "nr": "403",
+      "titel": "Aufbaumodul – Schwimmen in fließenden Gewässern",
+      "beschreibung": "Pflichtmodul für WRD, Strömungsrettung und Einsatztauchen. Grundlagen des sicheren Schwimmens und Verhaltens in Fließgewässern.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["401"]
+    },
+    {
+      "id": "404",
+      "nr": "404",
+      "titel": "Aufbaumodul – Einsatz in Küstengewässern",
+      "beschreibung": "Pflichtmodul für WRD und Bootsdienst. Vermittelt spezifische Anforderungen an Einsätze in Küsten- und Meeresgewässern.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["401"]
+    },
+    {
+      "id": "405",
+      "nr": "405",
+      "titel": "Aufbaumodul – Einsatz bei Dunkelheit",
+      "beschreibung": "Allgemeine Grundlagen für Nachteinsätze. Gilt für alle Einsatzbereiche der DLRG.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["401"]
+    },
+    {
+      "id": "411",
+      "nr": "411",
+      "titel": "Wasserretter – Fachausbildung Wasserrettungsdienst",
+      "beschreibung": "Kerneinsatzqualifikation der DLRG. Berechtigt zum selbstständigen Einsatz im Wasserrettungsdienst. Jährlicher Nachweis der Einsatzfähigkeit (Run-Swim-Run + kombinierte Übung) erforderlich. Grundlage für Wachführer, Bootsführerschein und Strömungsretter.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["152", "311_eh", "331", "161", "401", "402", "403", "404", "aerztl_tauglichkeit"],
+      "hinweis": "DRSA Silber und EH-Nachweis müssen ≤ 2 Jahre alt sein; San A ≤ 3 Jahre alt; Beginn ab 15 J. möglich"
+    },
+    {
+      "id": "412",
+      "nr": "412",
+      "titel": "Modul Eisrettung",
+      "beschreibung": "Spezialisierungsmodul für Einsätze auf Eis. Verlängert die Wasserretter-Qualifikation um 4 Jahre.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["411"]
+    },
+    {
+      "id": "421",
+      "nr": "421",
+      "titel": "Führungslehre-Ausbildung",
+      "beschreibung": "Theoretische Führungsgrundlagen nach DV 100. Pflichtvoraussetzung für Wachführer, Zugführer und Einsatzleiter. Gilt für alle Einsatzbereiche (WRD, Tauchen, Strömung, KatS).",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411"]
+    },
+    {
+      "id": "431",
+      "nr": "431",
+      "titel": "Wachführer",
+      "beschreibung": "Leitet eigenverantwortlich eine Wasserrettungsstation. Erfordert mindestens 2 Jahre aktive WRD-Mitarbeit und San B als medizinische Mindestqualifikation.",
+      "kategorie": "wasserrettungsdienst",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411", "421", "332", "711"]
+    },
+
+    // ─────────────────────────────────────────────
+    // STRÖMUNGSRETTUNG
+    // ─────────────────────────────────────────────
+    {
+      "id": "1011",
+      "nr": "1011",
+      "titel": "Strömungsretter 1 (SR1)",
+      "beschreibung": "Grundausbildung Strömungsrettung für Einsätze an Fließgewässern, bei Hochwasser und in Wildwasser. Vermittelt PSA-Strömungsrettung, Grundtechniken und Abseilen.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411", "331", "152", "aerztl_tauglichkeit"],
+      "hinweis": "DRSA Silber ≤ 2 Jahre; alternativ Module 401+402+403 statt vollem 411"
+    },
+    {
+      "id": "1021",
+      "nr": "1021",
+      "titel": "Modul Seiltechnik 1",
+      "beschreibung": "Einfache Seil- und Sicherungstechniken für den Strömungsrettungseinsatz. Pflichtvoraussetzung für SR2.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1011"]
+    },
+    {
+      "id": "1022",
+      "nr": "1022",
+      "titel": "Modul Wildwasser",
+      "beschreibung": "Spezialisierung für Wildwassereinsätze. Erfordert Wildwassertauglichkeit Stufe 2. Pflichtvoraussetzung für SR2.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1011", "wildwasser_tauglichkeit_2"]
+    },
+    {
+      "id": "1023",
+      "nr": "1023",
+      "titel": "Modul Raft als Einsatzmittel",
+      "beschreibung": "Ausbildung im Einsatz von Raftbooten bei Strömungsrettungs- und Hochwassereinsätzen.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411", "152"],
+      "hinweis": "Alternativ Module 401+402+403 statt vollem 411"
+    },
+    {
+      "id": "1024",
+      "nr": "1024",
+      "titel": "Modul Canyon",
+      "beschreibung": "Rettung in Canyon- und Schluchtgelände. Erfordert seiltechnische Vorkenntnisse und aktive Einsatzfähigkeit.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1011", "1021"]
+    },
+    {
+      "id": "1025",
+      "nr": "1025",
+      "titel": "Modul Absturzsicherung",
+      "beschreibung": "Grundlagen der Absturzsicherung. Pflichtmodul für Evakuierungsausbildungen.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1011"]
+    },
+    {
+      "id": "1028",
+      "nr": "1028",
+      "titel": "Strömungsretter 2 (SR2)",
+      "beschreibung": "Erweiterung zum Truppführer im Strömungsrettungseinsatz. Koordiniert Einsatzkräfte an Fließgewässern unter komplexen Bedingungen.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1011", "1021", "1022", "aerztl_tauglichkeit"]
+    },
+    {
+      "id": "1041",
+      "nr": "1041",
+      "titel": "Modul Seiltechnik 2",
+      "beschreibung": "Erweiterte Seiltechnik für komplexe Rettungsszenarien. Pflichtvoraussetzung für den Strömungsrettungs-Techniker (SRT).",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1028"]
+    },
+    {
+      "id": "1051",
+      "nr": "1051",
+      "titel": "Strömungsrettungs-Techniker (SRT)",
+      "beschreibung": "Höchste Stufe der Strömungsrettung. Planung und Durchführung komplexer seilgestützter Evakuierungen und technischer Rettungen.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1028", "1041"]
+    },
+    {
+      "id": "1012",
+      "nr": "1012",
+      "titel": "Sachkundiger PSA gegen Absturz",
+      "beschreibung": "Prüfung und Wartung persönlicher Schutzausrüstung gegen Absturz im DLRG-Einsatz.",
+      "kategorie": "stroemungsrettung",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411"]
+    },
+
+    // ─────────────────────────────────────────────
+    // TAUCHEN
+    // ─────────────────────────────────────────────
+    {
+      "id": "641",
+      "nr": "641",
+      "titel": "Tauchsignalmann (Signalmann)",
+      "beschreibung": "Sichert Einsatztaucher mittels Signalleine an der Oberfläche. Eigenständige Qualifikation ohne Tauchberechtigung, aber mit jährlicher DGUV-Tauchtauglichkeit.",
+      "kategorie": "tauchen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["dlrg_mitgliedschaft", "dguv_tauchtauglichkeit"]
+    },
+    {
+      "id": "612",
+      "nr": "612",
+      "titel": "Einsatztaucher Stufe 1 (ET1)",
+      "beschreibung": "Grundqualifikation für den Einsatztauchbetrieb bis 20 m Tiefe nach DGUV 105-002. Aktiver Unterwassereinsatz erst ab 18 Jahren. Jährlicher Nachweis von mindestens 10 Tauchgängen / 300 Min.",
+      "kategorie": "tauchen",
+      "mindestalter": 15,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["161", "dguv_tauchtauglichkeit", "411", "711"],
+      "hinweis": "Einsatz im Wasser erst ab 18 J.; alternativ Module 401+403 statt vollem 411"
+    },
+    {
+      "id": "613",
+      "nr": "613",
+      "titel": "Einsatztaucher Stufe 2 (ET2)",
+      "beschreibung": "Erweiterte Einsatztaucherqualifikation. Berechtigt zu Nachttauchen und Arbeiten unter Wasser. Grundlage für Taucheinsatzführer.",
+      "kategorie": "tauchen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["612", "411", "dguv_tauchtauglichkeit"]
+    },
+    {
+      "id": "614",
+      "nr": "614",
+      "titel": "Taucheinsatzführer (TEF)",
+      "beschreibung": "Plant und führt Taucheinsätze nach DGUV 105-002. Verantwortlich für Sicherheitsmanagement. Erfordert ≥ 30 Tauchgänge / ≥ 900 Min. nach Erwerb von ET2.",
+      "kategorie": "tauchen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["613", "711", "421", "dguv_tauchtauglichkeit"]
+    },
+
+    // ─────────────────────────────────────────────
+    // BOOTSWESEN
+    // ─────────────────────────────────────────────
+    {
+      "id": "511",
+      "nr": "511",
+      "titel": "DLRG-Bootsführerschein A – Binnen",
+      "beschreibung": "Berechtigung zum Führen eines DLRG-Motorrettungsbootes auf Binnengewässern. Interner Schein, umschreibbar in SBF Binnen. Erfordert ≥ 15 Fahrstunden und ≥ 1 Jahr Bootsdienst.",
+      "kategorie": "bootswesen",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["152", "411", "711", "aerztl_tauglichkeit"],
+      "hinweis": "Aushändigung erst ab 18 J.; DRSA Silber ≤ 2 Jahre; alternativ Module 401+402+404 statt vollem 411; ≥ 2 J. WRD-Mitarbeit, davon 1 J. Bootsdienst"
+    },
+    {
+      "id": "512",
+      "nr": "512",
+      "titel": "DLRG-Bootsführerschein B – See",
+      "beschreibung": "Berechtigung zum Führen auf Seeschifffahrtsstraßen. Erfordert längere WRD-Mitarbeit. Seefunkzeugnis (UBI/SRC/DFbz) wird empfohlen.",
+      "kategorie": "bootswesen",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["511", "aerztl_tauglichkeit"]
+    },
+
+    // ─────────────────────────────────────────────
+    // SPRECHFUNK / IUK
+    // ─────────────────────────────────────────────
+    {
+      "id": "710",
+      "nr": "710",
+      "titel": "Sprechfunkunterweisung DLRG-Betriebsfunk",
+      "beschreibung": "Basisunterweisung Sprechfunk, integriert im Modul 401. Pflicht für jede Einsatzkraft ab 12 Jahren. Berechtigt zur Teilnahme am internen DLRG-Funk.",
+      "kategorie": "sprechfunk",
+      "mindestalter": 12,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["dlrg_mitgliedschaft"]
+    },
+    {
+      "id": "711",
+      "nr": "711",
+      "titel": "DLRG-Sprechfunker",
+      "beschreibung": "Erweiterte Funkausbildung für den DLRG-Einsatz. Pflichtvoraussetzung für Wachführer, Bootsführerschein und Einsatztaucher.",
+      "kategorie": "sprechfunk",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["710"]
+    },
+    {
+      "id": "712",
+      "nr": "712",
+      "titel": "BOS-Sprechfunker analog",
+      "beschreibung": "Qualifikation für den analogen Behörden- und Organisationenfunk (BOS). Landesrechtlich geregelt. Pflicht für KatS-Einsätze.",
+      "kategorie": "sprechfunk",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["landesrecht"]
+    },
+    {
+      "id": "715",
+      "nr": "715",
+      "titel": "BOS-Sprechfunker digital (TETRA)",
+      "beschreibung": "Qualifikation für den digitalen Digitalfunk BOS (TETRA). Pflicht für SEG/KatS-Einsätze. Landesrechtlich geregelt.",
+      "kategorie": "sprechfunk",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["landesrecht"]
+    },
+    {
+      "id": "721",
+      "nr": "721",
+      "titel": "UKW-Sprechfunkzeugnis Binnenschifffahrt (UBI)",
+      "beschreibung": "Amtliche Prüfung zur Bedienung des Schiffsfunks auf Binnengewässern. Empfohlen für Bootsführerschein B.",
+      "kategorie": "sprechfunk",
+      "mindestalter": 15,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+
+    // ─────────────────────────────────────────────
+    // KATASTROPHENSCHUTZ / ÖFFENTLICHE GEFAHRENABWEHR
+    // ─────────────────────────────────────────────
+    {
+      "id": "811",
+      "nr": "811",
+      "titel": "Helfergrundausbildung KatS/ÖGA",
+      "beschreibung": "Allgemeine Grundlagen für Katastrophenschutz und öffentliche Gefahrenabwehr. Einstieg in die Führungslinie.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["401"]
+    },
+    {
+      "id": "830",
+      "nr": "830",
+      "titel": "Truppführerausbildung",
+      "beschreibung": "Befähigt zur Führung von 2–5 Helfern im Einsatz. Erste Führungsstufe innerhalb der KatS-Linie.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["811"]
+    },
+    {
+      "id": "831",
+      "nr": "831",
+      "titel": "Gruppenführerausbildung (Stufe A)",
+      "beschreibung": "Führung einer taktischen Gruppe im DLRG-Einsatz. Zweite Führungsstufe.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["830"]
+    },
+    {
+      "id": "832",
+      "nr": "832",
+      "titel": "Zugführer-/Einsatzführerausbildung (Stufe B)",
+      "beschreibung": "Führung eines taktischen Zuges (> 10 Kräfte). Grundlage für landesrechtlich konkretisierten Einsatzleiter Wasserrettung. Dritte Führungsstufe.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["831", "421"]
+    },
+    {
+      "id": "833",
+      "nr": "833",
+      "titel": "Verbandsführerausbildung (Stufe C/D)",
+      "beschreibung": "Führung von mehr als 130 Einsatzkräften. Höchste operative Führungsstufe in der DLRG.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["832"]
+    },
+    {
+      "id": "841",
+      "nr": "841",
+      "titel": "Fachberater Einsatzleitung",
+      "beschreibung": "Berät die Einsatzleitung in Fragen der Wasserrettung. Keine eigene Führungsfunktion. Setzt umfangreiche Einsatzerfahrung voraus.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["832"]
+    },
+    {
+      "id": "842",
+      "nr": "842",
+      "titel": "Einführung in die Stabsarbeit (Stufe D)",
+      "beschreibung": "Grundlagen der Führungsstabsarbeit im Katastrophenschutz.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["832"]
+    },
+    {
+      "id": "843",
+      "nr": "843",
+      "titel": "Fachberater KatS-/Krisenstab",
+      "beschreibung": "Beisitz in einem Krisen- oder Katastrophenschutzstab als fachlicher Berater für Wasserrettung.",
+      "kategorie": "katastrophenschutz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["842"]
+    },
+
+    // ─────────────────────────────────────────────
+    // LEHRSCHEINE SCHWIMMEN / RETTUNGSSCHWIMMEN
+    // ─────────────────────────────────────────────
+    {
+      "id": "180",
+      "nr": "180",
+      "titel": "Gemeinsamer Grundausbildungsblock (GAB)",
+      "beschreibung": "Methodik und Didaktik (30 LE). Pflichtbaustein für alle DLRG-Ausbilder- und Lehrscheinlizenzen sowie für DOSB-Trainer-C.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["171"]
+    },
+    {
+      "id": "171",
+      "nr": "171",
+      "titel": "Ausbildungsassistent Schwimmen (AA S)",
+      "beschreibung": "Assistiert erfahrenen Ausbildern in der Schwimmausbildung. Erster Schritt zur Lehrschein-Ausbilderlaufbahn. Darf ab 18 J. das Seepferdchen eigenständig abnehmen.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": 15,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["151"],
+      "hinweis": "DRSA Bronze ≤ 2 Jahre alt"
+    },
+    {
+      "id": "172",
+      "nr": "172",
+      "titel": "Ausbildungsassistent Rettungsschwimmen (AA RS)",
+      "beschreibung": "Assistiert in der Rettungsschwimmausbildung. Darf ab 18 J. den Junior-Retter (141) eigenständig abnehmen.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": 15,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["152", "311_eh"],
+      "hinweis": "DRSA Silber ≤ 2 Jahre alt"
+    },
+    {
+      "id": "182",
+      "nr": "182",
+      "titel": "DLRG-Ausbilder Schwimmen",
+      "beschreibung": "Berechtigt zur selbstständigen Durchführung und Abnahme von Seepferdchen und DSA Bronze/Silber/Gold.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["171", "180", "152", "311_eh"],
+      "hinweis": "DRSA Silber und EH ≤ 2 Jahre; Beginn ab 17 J. möglich"
+    },
+    {
+      "id": "183",
+      "nr": "183",
+      "titel": "DLRG-Ausbilder Rettungsschwimmen",
+      "beschreibung": "Berechtigt zur selbstständigen Abnahme aller DRSA-Stufen und des Junior-Retters.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["172", "180", "152", "311_eh"]
+    },
+    {
+      "id": "181",
+      "nr": "181",
+      "titel": "DLRG-Lehrschein – Ausbilder Schwimmen + Rettungsschwimmen (DOSB Trainer-C)",
+      "beschreibung": "Vollumfängliche Ausbildungslizenz für Schwimmen und Rettungsschwimmen. Automatisch auch DOSB Trainer-C Breitensport Rettungsschwimmen. Darf Ausbildungsassistenten (AA S/AA RS) ausbilden.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["171", "172", "180", "152", "311_eh"]
+    },
+    {
+      "id": "191",
+      "nr": "191",
+      "titel": "Multiplikator Schwimmen/Rettungsschwimmen",
+      "beschreibung": "Höchste Ausbilderstufe im Schwimm- und Rettungsschwimmbereich. Bildet Lehrscheininhaber (181) aus und fort. Berufung durch den Bundesverband.",
+      "kategorie": "lehrscheine_schwimmen",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["181", "190_multi_schulung"],
+      "hinweis": "Berufung durch BV erforderlich"
+    },
+
+    // ─────────────────────────────────────────────
+    // LEHRSCHEINE EINSATZ
+    // ─────────────────────────────────────────────
+    {
+      "id": "481",
+      "nr": "481",
+      "titel": "Ausbilder Wasserrettungsdienst",
+      "beschreibung": "Befähigt zur selbstständigen Durchführung von WRD-Ausbildungen (Module 401–405, Wasserretter 411).",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["411", "431", "180"]
+    },
+    {
+      "id": "491",
+      "nr": "491",
+      "titel": "Multiplikator Wasserrettungsdienst",
+      "beschreibung": "Bildet Ausbilder WRD (481) aus. Berufung durch den Bundesverband.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["481"]
+    },
+    {
+      "id": "591",
+      "nr": "591",
+      "titel": "Ausbilder Bootsführerschein A",
+      "beschreibung": "Befähigt zur Durchführung von Bootsführerschein-A-Ausbildungen.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["511", "180"]
+    },
+    {
+      "id": "592",
+      "nr": "592",
+      "titel": "Ausbilder Bootsführerschein B",
+      "beschreibung": "Befähigt zur Durchführung von Bootsführerschein-B-Ausbildungen.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["512", "591"]
+    },
+    {
+      "id": "781",
+      "nr": "781",
+      "titel": "Ausbilder Sprechfunk / BOS-analog",
+      "beschreibung": "Berechtigt zur Durchführung von Sprechfunk-Ausbildungen (711 und 712).",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["711"]
+    },
+    {
+      "id": "782",
+      "nr": "782",
+      "titel": "Ausbilder Sprechfunk BOS-digital (TETRA)",
+      "beschreibung": "Berechtigt zur Durchführung von Digitalfunk-BOS-Ausbildungen (715).",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["715"]
+    },
+    {
+      "id": "881",
+      "nr": "881",
+      "titel": "Ausbilder Katastrophenschutz",
+      "beschreibung": "Befähigt zur Durchführung von KatS/ÖGA-Ausbildungen innerhalb der DLRG.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["832", "180"]
+    },
+    {
+      "id": "1081",
+      "nr": "1081",
+      "titel": "Ausbilder Strömungsrettung",
+      "beschreibung": "Befähigt zur selbstständigen Durchführung von SR1-Ausbildungen.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1028", "180"]
+    },
+    {
+      "id": "1083",
+      "nr": "1083",
+      "titel": "Ausbilder Strömungsrettungs-Techniker (SRT)",
+      "beschreibung": "Berechtigt zur Ausbildung zum SRT (1051).",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["1081", "1051"]
+    },
+    {
+      "id": "682",
+      "nr": "682",
+      "titel": "DLRG-Lehrtaucher Einsatztauchen",
+      "beschreibung": "Befähigt zur selbstständigen Durchführung von Einsatztaucherausbildungen (ET1/ET2). Erfordert jährliche DGUV-Tauchtauglichkeit und mindestens 5 Jahre Mitwirkung im Einsatztauchen.",
+      "kategorie": "lehrscheine_einsatz",
+      "mindestalter": null,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["613", "614", "dguv_tauchtauglichkeit"]
+    },
+
+    // ─────────────────────────────────────────────
+    // LEHRSCHEINE MEDIZIN
+    // ─────────────────────────────────────────────
+    {
+      "id": "381",
+      "nr": "381",
+      "titel": "Erste-Hilfe-Ausbilder",
+      "beschreibung": "Lizenz zur Durchführung von Erste-Hilfe-Kursen (9 LE) nach BG-QSEH-Standard. Gültigkeit 4 Jahre.",
+      "kategorie": "lehrscheine_medizin",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["332", "180"]
+    },
+    {
+      "id": "382",
+      "nr": "382",
+      "titel": "Sanitätsausbilder",
+      "beschreibung": "Lizenz zur Durchführung von Sanitätsausbildungen A und B innerhalb der DLRG. Aufbauend auf EH-Ausbilder.",
+      "kategorie": "lehrscheine_medizin",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["381", "332"]
+    },
+    {
+      "id": "391",
+      "nr": "391",
+      "titel": "Multiplikator Erste Hilfe",
+      "beschreibung": "Bildet Erste-Hilfe-Ausbilder (381) aus. Berufung durch Leitung Medizin/Bundesarzt.",
+      "kategorie": "lehrscheine_medizin",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["381"]
+    },
+    {
+      "id": "392",
+      "nr": "392",
+      "titel": "Multiplikator Sanitätswesen",
+      "beschreibung": "Bildet Sanitätsausbilder (382) aus. Berufung durch Leitung Medizin.",
+      "kategorie": "lehrscheine_medizin",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": ["382"]
+    },
+
+    // ─────────────────────────────────────────────
+    // TRAINER- UND ÜBUNGSLEITERLIZENZEN (DOSB)
+    // ─────────────────────────────────────────────
+    {
+      "id": "trainer_c_leistung",
+      "nr": "–",
+      "titel": "Trainer C Leistungssport Rettungssport (DOSB)",
+      "beschreibung": "DOSB-Lizenz für die Betreuung von Rettungssportlern im Wettkampfbereich. Erfordert Kampfrichterlizenz E1 und Vorerfahrung im Rettungssport.",
+      "kategorie": "trainer_lizenzen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["152", "311_eh", "180"]
+    },
+    {
+      "id": "trainer_b_leistung",
+      "nr": "–",
+      "titel": "Trainer B Leistungssport Rettungssport (DOSB)",
+      "beschreibung": "Aufbauende DOSB-Lizenz für erfahrene Trainer im Rettungssport-Wettkampfbereich.",
+      "kategorie": "trainer_lizenzen",
+      "mindestalter": 20,
+      "gueltigkeitsjahre": 3,
+      "voraussetzungen": ["trainer_c_leistung"]
+    },
+    {
+      "id": "uel_c_aqua",
+      "nr": "–",
+      "titel": "Übungsleiter C Aquasport (DOSB)",
+      "beschreibung": "DOSB-Lizenz für die Leitung von Aquasportkursen in der DLRG.",
+      "kategorie": "trainer_lizenzen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["171", "180"]
+    },
+    {
+      "id": "uel_b_praevention",
+      "nr": "–",
+      "titel": "Übungsleiter B Sport in der Prävention (DOSB)",
+      "beschreibung": "DOSB-Lizenz für krankenkassenabrechenbare Präventionskurse im Aquabereich.",
+      "kategorie": "trainer_lizenzen",
+      "mindestalter": 18,
+      "gueltigkeitsjahre": 4,
+      "voraussetzungen": ["uel_c_aqua", "152", "311_eh"]
+    },
+    {
+      "id": "juleica",
+      "nr": "–",
+      "titel": "JuLeiCa – Jugendleitercard",
+      "beschreibung": "Bundesweit anerkannte Ehrenamtslizenz für Kinder- und Jugendgruppenleiter. Gültigkeit 3 Jahre.",
+      "kategorie": "trainer_lizenzen",
+      "mindestalter": 16,
+      "gueltigkeitsjahre": 3,
+      "voraussetzungen": ["311_eh"]
+    },
+
+    // ─────────────────────────────────────────────
+    // EXTERNE / SYSTEM-VORAUSSETZUNGSKNOTEN
+    // (keine Prüfungsqualifikationen, aber im Graph nötig)
+    // ─────────────────────────────────────────────
+    {
+      "id": "dlrg_mitgliedschaft",
+      "nr": "–",
+      "titel": "DLRG-Mitgliedschaft",
+      "beschreibung": "Pflichtvoraussetzung für alle Einsatzqualifikationen. Kein formaler Prüfungsschein.",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "aerztl_tauglichkeit",
+      "nr": "–",
+      "titel": "Ärztliche Einsatztauglichkeit",
+      "beschreibung": "Allgemeine ärztliche Tauglichkeit für den DLRG-Einsatzdienst. Kein standardisiertes Formular, Gültigkeit organisations- und einheitenspezifisch.",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "dguv_tauchtauglichkeit",
+      "nr": "–",
+      "titel": "DGUV-Tauchtauglichkeit (G31 / R 105-002)",
+      "beschreibung": "Jährlich nachzuweisende ärztliche Tauchtauglichkeit nach DGUV Regel 105-002. Pflicht für alle Einsatz- und Lehrtaucher sowie den Tauchsignalmann.",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": 1,
+      "voraussetzungen": []
+    },
+    {
+      "id": "aerztl_tauchtauglichkeit",
+      "nr": "–",
+      "titel": "Ärztliche Tauchtauglichkeit (DSTA-Niveau)",
+      "beschreibung": "Ärztliche Freigabe speziell für das Deutsche Schnorcheltauchabzeichen. Darf nicht älter als 4 Wochen sein.",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": [],
+      "hinweis": "Frist: ≤ 4 Wochen vor Prüfung"
+    },
+    {
+      "id": "wildwasser_tauglichkeit_2",
+      "nr": "–",
+      "titel": "Wildwassertauglichkeit Stufe 2",
+      "beschreibung": "Nachweis ausreichender Wildwassererfahrung und -kompetenz (entspricht etwa Wildwasserklasse WW II). Voraussetzung für das Modul Wildwasser (1022).",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "190_multi_schulung",
+      "nr": "190.1",
+      "titel": "Allgemeine Multiplikatorenschulung",
+      "beschreibung": "Übergreifende Schulung für alle Multiplikatoren-Anwärter der DLRG. Pflichtbaustein vor der Berufung.",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    },
+    {
+      "id": "landesrecht",
+      "nr": "–",
+      "titel": "Landesrechtliche Voraussetzung",
+      "beschreibung": "Platzhalterknoten für Qualifikationen, die landesrechtlich geregelt sind und bundesweit unterschiedliche Voraussetzungen haben (z. B. BOS-Funk, Einsatzleiter Wasserrettung).",
+      "kategorie": "system",
+      "mindestalter": null,
+      "gueltigkeitsjahre": null,
+      "voraussetzungen": []
+    }
+  ]
+}
