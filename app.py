@@ -117,6 +117,7 @@ def main() -> None:
         return
 
     path = build_learning_path(desired_ids, course_map, completed_ids=owned_ids)
+    st.session_state["planned_path_ids"] = {course.id for course in path}
     _render_path(path, course_map, owned_ids)
 
     st.markdown(
