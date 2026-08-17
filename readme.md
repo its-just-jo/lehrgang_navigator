@@ -1,65 +1,68 @@
 # DLRG Lehrgangs-Navigator
 
-Ein Streamlit-Projekt zur Planung individueller Lehrgangswege für die DLRG. Auf Basis der
-Prüfungsordnung Wasserrettungsdienst 2018 werden abhängige Lehrgänge automatisch in eine sinnvolle
-Reihenfolge gebracht.
+Statische Web-App zur Planung individueller DLRG-Ausbildungswege – gebaut mit
+Vite + TypeScript, gehostet auf GitHub Pages, komplett ohne Server-Backend.
 
-## Voraussetzungen
+Das Leit-Szenario: **Der Weg zum DLRG-Lehrschein (Ausbilder Schwimmen +
+Rettungsschwimmen, DOSB Trainer C).** Du wählst dein Ziel, hakst an, was du
+schon hast, und stellst ein, wie viele Lehrgänge pro Halbjahr für dich angenehm
+sind. Der Navigator berechnet daraus:
 
-- Python 3.9 oder neuer
-- Virtuelle Umgebung (empfohlen)
+- **den schnellsten Plan** – jeder Lehrgang so früh wie möglich,
+- **den günstigsten Plan** – gleiche Dauer, aber Lehrgänge so gelegt, dass
+  ablaufende Nachweise (z. B. „Erste Hilfe ≤ 2 Jahre bei der Prüfung“) frisch
+  bleiben und möglichst wenige Auffrischungslehrgänge nötig sind,
+- **eine Komfort-Übersicht** – was jede Stufe von 1–4 Lehrgängen pro Halbjahr
+  an Zeit und Geld kostet.
 
-## Installation & Start
+Gültigkeitsfenster, jährliche vs. halbjährliche Angebotsfrequenz, Mindestalter
+und automatisch eingeplante Auffrischungen (EH-Fortbildung, Sanitätsfortbildung)
+sind Teil des Modells.
+
+## Entwicklung
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-streamlit run app.py
+npm install
+npm run dev        # http://localhost:5173/lehrgang_navigator/
+npm test           # Vitest-Unit-Tests inkl. Lehrschein-Szenario
+npm run build      # Typecheck + statischer Build nach dist/
+npm run test:e2e   # Playwright-Smoke-Test gegen die gebaute Seite
 ```
 
-Die Anwendung wird anschließend unter `http://localhost:8501` bereitgestellt.
+## Deployment (GitHub Pages)
 
-### Start mit Docker
-
-```bash
-docker build -t dlrg-navigator .
-docker run --rm -p 8501:8501 dlrg-navigator
-```
-
-Die Streamlit-Oberfläche steht dann ebenfalls unter `http://localhost:8501` bereit.
+Jeder Push auf `main` baut die Seite und deployt sie über
+`.github/workflows/deploy.yml` nach GitHub Pages. Einmalig in den
+Repo-Einstellungen aktivieren: **Settings → Pages → Source: „GitHub Actions“**.
+Die Seite erscheint dann unter `https://<user>.github.io/lehrgang_navigator/`.
 
 ## Projektstruktur
 
-- `app.py` – Hauptseite mit Pfadberechnung und Timeline-Darstellung
-- `pages/1_📊_Netzplan.py` – Zusatzseite mit Graphviz-Netzplan aller Lehrgänge
-- `data/lehrgaenge.json` – Lehrgangskatalog inklusive Abhängigkeiten und Metadaten
-- `navigator/` – Wiederverwendbare Module für Datenzugriff, Pfadlogik und UI-Styling
-- `tests/` – Pytest-Suite zur Sicherung der Pfadberechnung und Datenqualität
-
-## Features
-
-- DLRG-inspiriertes UI-Design mit heroischem Einstieg, Karten und Timeline
-- Auswahl bereits absolvierter Lehrgänge und Zielqualifikationen
-- Automatische Ermittlung sämtlicher nötiger Lehrgänge inklusive Gesamtumfang
-- Graphviz-Netzplan zur Visualisierung der Abhängigkeiten
-- Datenhaltung in einer eigenständigen JSON-Datei für einfache Pflege
-
-## Tests
-
-Automatisierte Tests werden mit `pytest` ausgeführt:
-
-```bash
-pytest
+```
+data/lehrgaenge.json   Lehrgangskatalog (einzige Wahrheit): Voraussetzungen,
+                       Frische-Anforderungen, Lehreinheiten, Kosten-Schätzwerte,
+                       Angebotsfrequenz, Auffrischungs-Beziehungen
+data/angebote.json     Reale Angebote (Preise/Termine) aus dem Crawler;
+                       überschreiben die Schätzwerte beim Build
+src/lib/               Planungs-Engine (katalogunabhängig testbar):
+                       graph.ts (DFS, Toposort), planner.ts (Halbjahres-
+                       Scheduler ASAP/ALAP, Auffrischungslogik), angebote.ts
+src/main.ts            UI (Vanilla TS, kein Framework)
+crawler/               Separates Node-Skript, das DLRG-Seminarseiten abruft
+                       und data/angebote.json erzeugt (siehe crawler/README.md)
+tests/unit/            Vitest-Tests inkl. E2E-Szenario „Lehrschein“
+tests/e2e/             Playwright-Smoke-Test gegen die gebaute Seite
 ```
 
-Zusätzlich prüft `python -m compileall app.py navigator pages` die grundlegende Syntax aller Module.
+## Datenpflege
 
-## Continuous Integration
-
-Eine GitHub Action (`.github/workflows/ci.yml`) führt Pytest sowie den Syntax-Check bei jedem Push
-und Pull Request automatisch aus.
+- Kosten und Umfänge im Katalog sind **Schätzwerte** (je Gliederung
+  unterschiedlich) – reale Preise liefert `npm run crawl`
+  (siehe [crawler/README.md](crawler/README.md)).
+- Grundlage sind die DLRG-Prüfungsordnungen (u. a. PO Schwimmen/Rettungsschwimmen
+  13. Auflage 2025); die Quellenliste steht in `data/lehrgaenge.json` → `meta.quellen`.
+- Verbindlich sind allein die Prüfungsordnungen und die Auskunft deiner Gliederung.
 
 ## Lizenz
 
-Dieses Projekt steht unter der MIT-Lizenz. Weitere Details siehe [LICENSE](LICENSE), falls vorhanden.
+MIT.

@@ -4,71 +4,70 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-DLRG Lehrgangs-Navigator is a Streamlit web app for planning individual DLRG (German water rescue service) training paths based on the 2018 Water Rescue Service examination regulations. The UI and all data are in German.
+DLRG Lehrgangs-Navigator is a **static web app** (Vite + TypeScript, no framework,
+no backend) for planning individual DLRG training paths. It is deployed to GitHub
+Pages. The UI and all data are in German; source code identifiers are German too.
+
+The flagship end-to-end scenario is the path to the **DLRG-Lehrschein (181,
+DOSB Trainer C Schwimmen/Rettungsschwimmen)**: given a target qualification,
+already-held qualifications, and a comfort level (courses per half-year), the app
+computes the fastest and the cheapest schedule.
 
 ## Commands
 
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run the application
-streamlit run app.py              # Opens at http://localhost:8501
-
-# Run tests
-pytest                            # All tests
-pytest tests/test_path_planning.py  # Single test file
-pytest -k "test_topological"     # Single test by name
-
-# Syntax validation (also runs in CI)
-python -m compileall app.py navigator pages
-
-# Docker
-docker build -t dlrg-navigator .
-docker run --rm -p 8501:8501 dlrg-navigator
+npm install
+npm run dev          # dev server at /lehrgang_navigator/
+npm test             # Vitest unit tests (tests/unit/, includes Lehrschein scenario)
+npx vitest run tests/unit/planner.test.ts   # single test file
+npm run build        # tsc --noEmit + vite build → dist/
+npm run test:e2e     # Playwright smoke test (builds + serves via vite preview)
+npm run crawl        # crawler → data/angebote.json (network required)
 ```
 
-No linting tool is configured; there is no black, flake8, or pylint in the project.
+In sandboxed environments without matching Playwright browsers, run
+`PW_CHROMIUM_PATH=/opt/pw-browsers/chromium npx playwright test`.
 
 ## Architecture
 
-The app separates reusable logic (`navigator/`) from Streamlit pages, so the core library can be tested without a running Streamlit server.
-
-### Data Flow
-
 ```
-data/lehrgaenge.json
-       │
-       ▼
-navigator/data.py          loads + validates the catalogue, cached with @lru_cache
-       │                   raises MissingCourseError if any prerequisite ID is unknown
-       ▼
-navigator/models.py        frozen dataclass Course(id, name, description,
-       │                   category, duration_hours, prerequisites: list[str])
-       ▼
-navigator/path.py          core planning logic:
-       │                     collect_required_courses() — DFS over prerequisites
-       │                     build_learning_path()      — returns topologically sorted list
-       │                     _topological_sort()        — Kahn's algorithm; raises CycleError
-       │                     _expand_completed()        — courses in CASCADE_COMPLETION_IDS
-       │                                                  auto-mark their prerequisites done
-       ▼
-app.py / pages/            Streamlit UI, @st.cache_data wraps catalogue loading
-navigator/ui.py            custom CSS + rendering helpers (hero, timeline, cards)
+data/lehrgaenge.json     course catalogue – the single source of truth
+data/angebote.json       crawler output; real prices override catalogue estimates
+        │
+        ▼
+src/lib/catalog.ts       indiziereKatalog() validates referential integrity
+src/lib/graph.ts         erweitereVorhanden() (transitive completion),
+                         sammleBenoetigte() (DFS), topologischSortiert() (Kahn)
+src/lib/planner.ts       plane() → { schnell, guenstig }:
+                           ASAP scheduling  = fastest plan
+                           ALAP within same makespan = cheapest plan (keeps
+                           prerequisites fresh → fewer refresher courses)
+                           repariereFrische() inserts refreshers (321, 333) when
+                           validity windows (frische) would be violated
+src/main.ts              vanilla-TS UI, state in localStorage, German labels
+crawler/crawl.mjs        separate Node script (no deps); NOT part of the app build
 ```
 
-### Multi-page Streamlit Structure
-
-`app.py` is the main planning page. `pages/1_🧭_Lehrgangsnetzplan.py` is a separate page that renders the full course dependency graph using Graphviz (SFDP layout). Streamlit discovers pages automatically via the `pages/` directory; the emoji prefix is intentional for sidebar ordering.
-
-### `navigator/ui.py` — Optional Streamlit Import
-
-The module defers `import streamlit` so that color constants (`PRIMARY_RED`, `SECONDARY_YELLOW`, `DARK_BLUE`) are available in tests without a Streamlit runtime. Respect this pattern — do not add a top-level `import streamlit` to `ui.py`.
+Half-year slots are the planning unit: slot 0 = the half-year after "today";
+`angebot: "jaehrlich"` courses are assumed to run only in the first calendar
+half-year. Ages of prerequisites are measured in half-year steps (0.5 years/slot).
 
 ## Key Conventions
 
-- **Course IDs** are snake_case strings defined in `data/lehrgaenge.json` (e.g., `sanitaetsausbildung_a`). They are the stable keys used everywhere; display names come from `Course.name`.
-- **`CASCADE_COMPLETION_IDS`** in `navigator/path.py` is a hardcoded set of course IDs whose prerequisites are automatically considered completed. Modify it when a new "umbrella" qualification is added to the catalogue.
-- **Frozen dataclasses** are used for `Course` — treat catalogue objects as immutable.
-- Tests use `monkeypatch` to mock Streamlit calls in `test_ui_module.py`. Add new UI functions to tests the same way.
-- The JSON catalogue (`data/lehrgaenge.json`) is the single source of truth for courses and their prerequisite relationships; `navigator/data.py` validates referential integrity on load.
+- **Course IDs** are the DLRG PO numbers as strings (`"181"`, `"311_eh"`, …),
+  defined in `data/lehrgaenge.json`. Display names come from `titel`.
+- Catalogue fields `frische` (max age of a prerequisite in years at course time)
+  and `auffrischung_fuer` (which qualifications a course renews) drive the
+  cheapest-plan logic. `extern: true` marks non-course prerequisites (medical
+  checks, membership) that are listed but never scheduled.
+- Costs/Lehreinheiten in the catalogue are **estimates**; real offers from the
+  crawler (data/angebote.json) override them at build time (`src/lib/angebote.ts`).
+- Tests live in `tests/unit` (Vitest, node environment — no DOM) and `tests/e2e`
+  (Playwright). The Lehrschein scenario test
+  (`tests/unit/lehrschein.szenario.test.ts`) encodes the product's acceptance
+  criteria — keep it green and meaningful.
+- `vite.config.ts` sets `base: "/lehrgang_navigator/"` (the repo name) for dev,
+  preview and build alike; override with the `PAGES_BASE` env var if the repo
+  name changes.
+- CI: `.github/workflows/ci.yml` (tests + build + e2e), `deploy.yml` (Pages
+  deploy from `main`; requires Settings → Pages → Source: GitHub Actions).
