@@ -1,0 +1,23 @@
+{
+  "name": "lehrgang-navigator",
+  "version": "2.0.0",
+  "description": "DLRG Lehrgangs-Navigator – statischer Planer für individuelle Ausbildungswege",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "crawl": "node crawler/crawl.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^26.2.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vitest": "^2.1.0"
+  }
+}

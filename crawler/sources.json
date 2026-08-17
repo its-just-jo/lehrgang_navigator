@@ -1,0 +1,30 @@
+{
+  "hinweis": "Seminar-/Lehrgangslisten der DLRG. 'url' ist die Listenseite, 'linkmuster' ein Regex (case-insensitive), mit dem Detailseiten-Links auf der Listenseite erkannt werden. Neue Landesverbände einfach ergänzen – die Seiten sind TYPO3-basiert und ähnlich aufgebaut.",
+  "quellen": [
+    {
+      "name": "Bundesverband",
+      "url": "https://www.dlrg.de/fuer-mitglieder/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+"
+    },
+    {
+      "name": "LV Schleswig-Holstein",
+      "url": "https://schleswig-holstein.dlrg.de/seminare-und-lehrgaenge/anmeldung/",
+      "linkmuster": "/anmeldung/[^\"']+-s/?"
+    },
+    {
+      "name": "LV Nordrhein",
+      "url": "https://nordrhein.dlrg.de/fuer-mitglieder/lehrgaenge-und-veranstaltungen/",
+      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung)[^\"']*"
+    },
+    {
+      "name": "LV Hessen",
+      "url": "https://hessen.dlrg.de/fuer-mitglieder/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+"
+    },
+    {
+      "name": "LV Rheinland-Pfalz",
+      "url": "https://rheinland-pfalz.dlrg.de/fuer-mitglieder/lehrgaenge-tagungen/",
+      "linkmuster": "/(lehrgaenge|seminare?|tagungen)[^\"']*"
+    }
+  ]
+}

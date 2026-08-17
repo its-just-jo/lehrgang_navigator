@@ -1,0 +1,404 @@
+:root {
+  --rot: #e2001a;
+  --gelb: #ffd500;
+  --blau: #003064;
+  --blau-hell: #0d4f9e;
+  --tinte: #1c2733;
+  --grau: #5b6b7b;
+  --linie: #d9e1e8;
+  --flaeche: #f2f6f9;
+  --karte: #ffffff;
+  --radius: 12px;
+  --schatten: 0 1px 3px rgba(0, 24, 48, 0.08), 0 4px 16px rgba(0, 24, 48, 0.06);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", sans-serif;
+  color: var(--tinte);
+  background: var(--flaeche);
+  line-height: 1.55;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--blau) 0%, var(--blau-hell) 100%);
+  color: #fff;
+  padding: 2.5rem 1.5rem 2.75rem;
+}
+
+.hero-inner,
+main,
+footer.fuss {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.hero-inner {
+  padding: 0;
+}
+
+.hero .badge {
+  display: inline-block;
+  background: var(--gelb);
+  color: var(--blau);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.15;
+}
+
+.hero p {
+  margin: 0;
+  max-width: 46rem;
+  opacity: 0.92;
+}
+
+main {
+  padding-top: 1.75rem;
+  padding-bottom: 3rem;
+}
+
+section {
+  margin-bottom: 1.75rem;
+}
+
+.karte {
+  background: var(--karte);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  box-shadow: var(--schatten);
+  padding: 1.25rem 1.4rem;
+}
+
+h2 {
+  font-size: 1.15rem;
+  color: var(--blau);
+  margin: 0 0 0.9rem;
+}
+
+h2 .schritt {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--rot);
+  color: #fff;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+  vertical-align: -0.25rem;
+}
+
+.steuer-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+label.feld {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--grau);
+}
+
+label.feld > select,
+label.feld > input[type="number"] {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  color: var(--tinte);
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  background: #fff;
+}
+
+label.feld > input[type="range"] {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  accent-color: var(--rot);
+}
+
+.regler-wert {
+  font-weight: 700;
+  color: var(--blau);
+}
+
+.kategorie-block {
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  background: #fff;
+}
+
+.kategorie-block summary {
+  cursor: pointer;
+  padding: 0.55rem 0.8rem;
+  font-weight: 600;
+  color: var(--blau);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kategorie-block summary::after {
+  content: "▾";
+  color: var(--grau);
+}
+
+.kategorie-block[open] summary::after {
+  content: "▴";
+}
+
+.kategorie-block .anzahl {
+  background: var(--gelb);
+  color: var(--blau);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  padding: 0.05rem 0.55rem;
+  margin-left: 0.5rem;
+}
+
+.kurs-checkboxen {
+  padding: 0.25rem 0.8rem 0.7rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.15rem 1rem;
+}
+
+.kurs-checkboxen label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  font-size: 0.9rem;
+  padding: 0.15rem 0;
+}
+
+.kurs-checkboxen input {
+  accent-color: var(--rot);
+}
+
+.vergleich {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.plan-karte {
+  border: 2px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.plan-karte:hover {
+  box-shadow: var(--schatten);
+}
+
+.plan-karte.aktiv {
+  border-color: var(--rot);
+  box-shadow: 0 0 0 3px rgba(226, 0, 26, 0.12);
+}
+
+.plan-karte h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  color: var(--blau);
+}
+
+.kennzahlen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  margin: 0;
+}
+
+.kennzahlen div dt {
+  font-size: 0.75rem;
+  color: var(--grau);
+}
+
+.kennzahlen div dd {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--tinte);
+}
+
+.hinweis-band {
+  background: #fff8d6;
+  border: 1px solid #e1db8a;
+  border-radius: 8px;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  margin-top: 0.9rem;
+}
+
+.zeitachse {
+  margin-top: 1.25rem;
+  display: grid;
+  gap: 0.9rem;
+}
+
+.slot {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.slot .slot-titel {
+  font-weight: 700;
+  color: var(--blau);
+  border-right: 3px solid var(--gelb);
+  padding: 0.4rem 0.9rem 0.4rem 0;
+  text-align: right;
+  font-size: 0.9rem;
+}
+
+.slot ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.kurs-chip {
+  background: #fff;
+  border: 1px solid var(--linie);
+  border-left: 4px solid var(--rot);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+}
+
+.kurs-chip.auffrischung {
+  border-left-color: var(--gelb);
+  background: #fffbe8;
+}
+
+.kurs-chip .kurs-name {
+  font-weight: 600;
+}
+
+.kurs-chip .kurs-meta {
+  font-size: 0.8rem;
+  color: var(--grau);
+}
+
+.kurs-chip .grund {
+  display: block;
+  font-size: 0.8rem;
+  color: #8a6d00;
+  margin-top: 0.15rem;
+}
+
+.pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 0.05rem 0.5rem;
+  background: var(--gelb);
+  color: var(--blau);
+  margin-left: 0.4rem;
+  vertical-align: 0.1rem;
+}
+
+table.komfort {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+table.komfort th,
+table.komfort td {
+  text-align: left;
+  padding: 0.45rem 0.7rem;
+  border-bottom: 1px solid var(--linie);
+}
+
+table.komfort thead th {
+  color: var(--grau);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+table.komfort tr.aktiv td {
+  background: #fdeef0;
+  font-weight: 600;
+}
+
+.extern-liste {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.extern-liste li {
+  margin-bottom: 0.3rem;
+}
+
+.warnungen {
+  background: #fdeef0;
+  border: 1px solid #f2b8c0;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  font-size: 0.9rem;
+}
+
+.warnungen ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+footer.fuss {
+  padding-bottom: 3rem;
+  font-size: 0.82rem;
+  color: var(--grau);
+}
+
+footer.fuss ul {
+  padding-left: 1.2rem;
+}
+
+.leer-hinweis {
+  background: #e8f6ec;
+  border: 1px solid #b3dfc0;
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .slot {
+    grid-template-columns: 1fr;
+  }
+  .slot .slot-titel {
+    text-align: left;
+    border-right: none;
+    border-bottom: 3px solid var(--gelb);
+    padding: 0 0 0.25rem;
+  }
+}
