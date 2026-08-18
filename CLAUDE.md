@@ -10,8 +10,10 @@ Pages. The UI and all data are in German; source code identifiers are German too
 
 The flagship end-to-end scenario is the path to the **DLRG-Lehrschein (181,
 DOSB Trainer C Schwimmen/Rettungsschwimmen)**: given a target qualification,
-already-held qualifications, and a comfort level (courses per half-year), the app
-computes the fastest and the cheapest schedule.
+already-held qualifications, home location, max distance, and a desired pace
+(courses per half-year, or "egal"), the app computes five peer scenarios:
+schnell, guenstig, komfort, fahrt (least travel), ausgewogen (balanced). A
+second tab renders all courses as a simplified metro-map (src/netzplan.ts).
 
 ## Commands
 
@@ -36,16 +38,22 @@ data/angebote.json       crawler output; real prices override catalogue estimate
         │
         ▼
 src/lib/catalog.ts       indiziereKatalog() validates referential integrity
-src/lib/graph.ts         erweitereVorhanden() (transitive completion),
-                         sammleBenoetigte() (DFS), topologischSortiert() (Kahn)
-src/lib/planner.ts       plane() → { schnell, guenstig }:
-                           ASAP scheduling  = fastest plan
-                           ALAP within same makespan = cheapest plan (keeps
-                           prerequisites fresh → fewer refresher courses)
-                           repariereFrische() inserts refreshers (321, 333) when
-                           validity windows (frische) would be violated
-src/main.ts              vanilla-TS UI, state in localStorage, German labels
+src/lib/graph.ts         erweitereVorhanden() (transitive completion incl.
+                         `ersetzt` hierarchy: Silber covers Bronze),
+                         sammleBenoetigte() (DFS + pruning of superseded
+                         courses), topologischSortiert() (Kahn),
+                         anbieterIndex() (which planned course satisfies a
+                         prerequisite after substitution)
+src/lib/planner.ts       plane() → { schnell, guenstig, komfort, fahrt,
+                         ausgewogen }: ASAP/ALAP slot scheduling, per-scenario
+                         offer assignment (cheapest / nearest / mix, haversine
+                         distance, maxKm filter), target variants via
+                         `alternativen` (181 vs 182+183). Refreshers are NOT
+                         auto-scheduled — freshness violations only warn.
+src/main.ts              vanilla-TS UI (ISC-style), state in localStorage
+src/netzplan.ts          metro-map SVG of the whole catalogue
 crawler/crawl.mjs        separate Node script (no deps); NOT part of the app build
+                         (extracts price, dates, Ort; coords via crawler/orte.json)
 ```
 
 Half-year slots are the planning unit: slot 0 = the half-year after "today";

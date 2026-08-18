@@ -31,9 +31,21 @@ function miniKurs(id: string, voraussetzungen: string[]): Lehrgang {
 describe("erweitereVorhanden", () => {
   it("ergänzt Voraussetzungen transitiv (Wasserretter impliziert Basisausbildung)", () => {
     const erweitert = erweitereVorhanden(["411"], byId);
-    for (const id of ["411", "152", "311_eh", "331", "161", "401", "402", "403", "404", "151"]) {
+    for (const id of ["411", "152", "311_eh", "331", "161", "401", "402", "403", "404"]) {
       expect(erweitert.has(id), id).toBe(true);
     }
+  });
+
+  it("deckt über 'ersetzt' niedrigere Stufen ab: Silber impliziert Bronze und EH", () => {
+    const erweitert = erweitereVorhanden(["152"], byId);
+    expect(erweitert.has("151")).toBe(true);
+    expect(erweitert.has("311_eh")).toBe(true);
+  });
+
+  it("DRSA Gold impliziert transitiv auch Bronze", () => {
+    const erweitert = erweitereVorhanden(["153"], byId);
+    expect(erweitert.has("152")).toBe(true);
+    expect(erweitert.has("151")).toBe(true);
   });
 });
 
@@ -44,6 +56,14 @@ describe("sammleBenoetigte", () => {
     expect(benoetigt).toEqual(new Set(["172"]));
   });
 
+  it("streicht Lehrgänge, die ein höherwertiger Lehrgang im Plan abdeckt", () => {
+    // Für den Lehrschein ist DRSA Silber ohnehin nötig – ein separates
+    // Bronze (Voraussetzung des Ausbildungsassistenten) entfällt damit.
+    const benoetigt = sammleBenoetigte(["181"], byId, new Set());
+    expect(benoetigt.has("152")).toBe(true);
+    expect(benoetigt.has("151")).toBe(false);
+  });
+
   it("wirft bei unbekannter Ziel-ID", () => {
     expect(() => sammleBenoetigte(["gibt_es_nicht"], byId, new Set())).toThrow(
       /Unbekannte Lehrgangs-ID/,
@@ -52,16 +72,15 @@ describe("sammleBenoetigte", () => {
 });
 
 describe("topologischSortiert", () => {
-  it("liefert Voraussetzungen immer vor ihren Nachfolgern", () => {
+  it("liefert Voraussetzungen immer vor ihren Nachfolgern (inkl. Ersetzungen)", () => {
     const benoetigt = sammleBenoetigte(["181"], byId, new Set());
     const reihenfolge = topologischSortiert(benoetigt, byId);
     const position = new Map(reihenfolge.map((id, i) => [id, i]));
-    for (const id of benoetigt) {
-      for (const v of byId.get(id)!.voraussetzungen) {
-        if (!benoetigt.has(v)) continue;
-        expect(position.get(v)!, `${v} vor ${id}`).toBeLessThan(position.get(id)!);
-      }
-    }
+    // 152 erfüllt die Bronze-Anforderung des Ausbildungsassistenten (171)
+    // und muss daher vor 171 liegen.
+    expect(position.get("152")!).toBeLessThan(position.get("171")!);
+    expect(position.get("311_eh")!).toBeLessThan(position.get("152")!);
+    expect(position.get("180")!).toBeLessThan(position.get("181")!);
   });
 
   it("erkennt Zyklen", () => {
