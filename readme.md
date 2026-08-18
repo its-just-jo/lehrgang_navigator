@@ -3,7 +3,7 @@
 Statische Web-App zur Planung individueller DLRG-Ausbildungswege – gebaut mit
 Vite + TypeScript, gehostet auf GitHub Pages, komplett ohne Server-Backend.
 
-Das Leit-Szenario: **Der Weg zum DLRG-Lehrschein (Ausbilder Schwimmen +
+Das Haupt-Szenario: **Der Weg zum DLRG-Lehrschein (Ausbilder Schwimmen +
 Rettungsschwimmen, DOSB Trainer C).** Du wählst dein Ziel, hakst an, was du
 schon hast, und stellst ein, wie viele Lehrgänge pro Halbjahr für dich angenehm
 sind. Der Navigator berechnet daraus:
