@@ -23,8 +23,14 @@ Das Modell kennt Gültigkeitsfenster (als Warnung – Auffrischungen werden
 bewusst nicht eingeplant), jährliche vs. halbjährliche Angebotsfrequenz,
 Mindestalter, Ersetzungs-Hierarchien (`ersetzt`) und gleichwertige
 Lehrgangskombinationen (`alternativen`, z. B. getrennte Ausbilder-Lehrgänge
-182 + 183 statt des seltenen Kombi-Lehrgangs 181). Ein zweiter Tab zeigt das
-gesamte Lehrgangsnetz als vereinfachten U-Bahn-Plan.
+182 + 183 statt des seltenen Kombi-Lehrgangs 181).
+
+Der Plan lässt sich als **Liste, Zeitstrahl oder Tabelle** darstellen. Ein
+zweiter Tab zeigt das gesamte Lehrgangsnetz als vereinfachten U-Bahn-Plan mit
+Altersachse (durchgezogene Kanten = echte Voraussetzungen, Querverbindungen
+erscheinen beim Klick auf eine Station) – wahlweise als Liniennetz oder radial
+(0 Jahre innen, Alter nach außen). Der Crawler kennt die Akademien des
+Bundesverbands und aller 18 Landesverbände.
 
 ## Entwicklung
 

@@ -10,7 +10,7 @@ import {
   naechstesHalbjahr,
   plane,
 } from "./lib/planner";
-import { renderNetzplan } from "./netzplan";
+import { kurzTitel, LINIEN_FARBEN, renderNetzplan, type NetzAnsicht } from "./netzplan";
 import type {
   AngebotsDatei,
   GeplanterKurs,
@@ -48,6 +48,8 @@ const STANDORTE: Standort[] = [
   ).values(),
 ].sort((a, b) => a.name.localeCompare(b.name, "de"));
 
+type PlanAnsicht = "liste" | "zeitstrahl" | "tabelle";
+
 interface Zustand {
   tab: "planer" | "netz";
   zielId: string;
@@ -57,6 +59,8 @@ interface Zustand {
   standortName: string | null;
   maxKm: number | null;
   szenario: SzenarioId;
+  planAnsicht: PlanAnsicht;
+  netzAnsicht: NetzAnsicht;
 }
 
 function ladeZustand(): Zustand {
@@ -69,6 +73,8 @@ function ladeZustand(): Zustand {
     standortName: null,
     maxKm: null,
     szenario: "schnell",
+    planAnsicht: "liste",
+    netzAnsicht: "linien",
   };
   try {
     const roh = localStorage.getItem(SPEICHER_SCHLUESSEL);
@@ -77,6 +83,10 @@ function ladeZustand(): Zustand {
     if (!byId.has(geladen.zielId)) geladen.zielId = STANDARD_ZIEL;
     geladen.vorhanden = geladen.vorhanden.filter((id) => byId.has(id));
     if (!(geladen.szenario in SZENARIO_META)) geladen.szenario = "schnell";
+    if (!["liste", "zeitstrahl", "tabelle"].includes(geladen.planAnsicht)) {
+      geladen.planAnsicht = "liste";
+    }
+    if (!["linien", "radial"].includes(geladen.netzAnsicht)) geladen.netzAnsicht = "linien";
     return geladen;
   } catch {
     return standard;
@@ -94,7 +104,12 @@ function speichereZustand(): void {
 }
 
 const start: Halbjahr = naechstesHalbjahr(aktuellesHalbjahr());
-const netzplanHtml = renderNetzplan(katalog);
+
+const netzplanCache = new Map<NetzAnsicht, string>();
+function netzplanHtml(ansicht: NetzAnsicht): string {
+  if (!netzplanCache.has(ansicht)) netzplanCache.set(ansicht, renderNetzplan(katalog, ansicht));
+  return netzplanCache.get(ansicht)!;
+}
 
 function esc(text: string): string {
   return text
@@ -237,6 +252,125 @@ function renderZeitachse(plan: Plan): string {
     </div>`;
 }
 
+/** Horizontaler Zeitstrahl: Halbjahre auf der x-Achse, Lehrgänge als Blöcke. */
+function renderZeitstrahl(plan: Plan): string {
+  const SPALTE = 180;
+  const X0 = 24;
+  const BLOCK_H = 50;
+  const BLOCK_ABSTAND = 8;
+  const ACHSE_Y = 40;
+  const n = plan.slots.length;
+  const maxStapel = Math.max(1, ...plan.slots.map((s) => s.length));
+  const breite = X0 + n * SPALTE + 40;
+  const hoehe = ACHSE_Y + 22 + maxStapel * (BLOCK_H + BLOCK_ABSTAND) + 12;
+
+  const teile: string[] = [];
+  teile.push(
+    `<line x1="${X0}" y1="${ACHSE_Y}" x2="${X0 + n * SPALTE + 16}" y2="${ACHSE_Y}" stroke="#666" stroke-width="2" />`,
+    `<path d="M ${X0 + n * SPALTE + 16} ${ACHSE_Y - 5} l 10 5 l -10 5 z" fill="#666" />`,
+  );
+  plan.slots.forEach((eintraege, slot) => {
+    const x = X0 + slot * SPALTE;
+    teile.push(
+      `<line x1="${x}" y1="${ACHSE_Y - 6}" x2="${x}" y2="${ACHSE_Y + 6}" stroke="#666" stroke-width="2" />`,
+      `<line x1="${x}" y1="${ACHSE_Y + 6}" x2="${x}" y2="${hoehe - 6}" stroke="#eee" stroke-width="1" />`,
+      `<text x="${x + SPALTE / 2}" y="${ACHSE_Y - 12}" font-size="11" font-weight="bold" fill="#004f9f" text-anchor="middle">${esc(
+        halbjahrLabel(halbjahrNachSlots(start, slot)),
+      )}</text>`,
+    );
+    if (eintraege.length === 0) {
+      teile.push(
+        `<text x="${x + SPALTE / 2}" y="${ACHSE_Y + 40}" font-size="10.5" fill="#999" text-anchor="middle">Pause</text>`,
+      );
+    }
+    eintraege.forEach((eintrag, i) => {
+      const bx = x + 10;
+      const by = ACHSE_Y + 16 + i * (BLOCK_H + BLOCK_ABSTAND);
+      const farbe = LINIEN_FARBEN[eintrag.kurs.kategorie] ?? "#666";
+      const kosten = eintrag.angebot?.kosten ?? eintrag.kurs.kosten;
+      const meta = `${eintrag.kurs.nr !== "–" ? "Nr. " + eintrag.kurs.nr + " · " : ""}${
+        kosten != null ? euro(kosten) : "€ offen"
+      }`;
+      const ort = eintrag.angebot
+        ? `${eintrag.angebot.ort ?? ""}${eintrag.entfernungKm != null ? ` · ~${eintrag.entfernungKm} km` : ""}`
+        : "Ort offen";
+      teile.push(
+        `<g><title>${esc(eintrag.kurs.titel)}</title>
+          <rect x="${bx}" y="${by}" width="${SPALTE - 20}" height="${BLOCK_H}" rx="4" fill="#fff" stroke="#d8d8d8" />
+          <rect x="${bx}" y="${by}" width="5" height="${BLOCK_H}" rx="2" fill="${farbe}" />
+          <text x="${bx + 12}" y="${by + 16}" font-size="11" font-weight="bold" fill="#222">${esc(kurzTitel(eintrag.kurs, 24))}</text>
+          <text x="${bx + 12}" y="${by + 30}" font-size="9.5" fill="#666">${esc(meta)}</text>
+          <text x="${bx + 12}" y="${by + 43}" font-size="9.5" fill="#004f9f">${esc(ort)}</text>
+        </g>`,
+      );
+    });
+  });
+
+  return `
+    <div class="tabellen-scroll zeitstrahl">
+      <svg viewBox="0 0 ${breite} ${hoehe}" width="${breite}" height="${hoehe}" role="img"
+           aria-label="Zeitstrahl des Ausbildungswegs" font-family="Arial, sans-serif">
+        ${teile.join("\n")}
+      </svg>
+    </div>`;
+}
+
+/** Kompakte Tabellen-Ansicht des Plans. */
+function renderPlanTabelle(plan: Plan): string {
+  const standort = aktuellerStandort();
+  const zeilen = plan.kurse
+    .map((eintrag) => {
+      const kosten = eintrag.angebot?.kosten ?? eintrag.kurs.kosten;
+      return `
+        <tr>
+          <td>${esc(halbjahrLabel(halbjahrNachSlots(start, eintrag.slot)))}</td>
+          <td>${esc(eintrag.kurs.nr)}</td>
+          <td>${esc(eintrag.kurs.titel)}</td>
+          <td>${eintrag.kurs.lehreinheiten ?? "?"}</td>
+          <td>${kosten != null ? euro(kosten) : "offen"}${eintrag.angebot ? "" : "*"}</td>
+          <td>${esc(eintrag.angebot?.ort ?? "–")}</td>
+          <td>${esc(eintrag.angebot?.gliederung ?? "–")}</td>
+          ${standort ? `<td>${eintrag.entfernungKm != null ? `~${eintrag.entfernungKm} km` : "–"}</td>` : ""}
+        </tr>`;
+    })
+    .join("");
+  return `
+    <div class="tabellen-scroll">
+      <table class="tempo-tabelle plan-tabelle">
+        <thead>
+          <tr><th>Halbjahr</th><th>Nr.</th><th>Lehrgang</th><th>LE</th><th>Kosten</th><th>Ort</th><th>Gliederung</th>${
+            standort ? "<th>Entfernung</th>" : ""
+          }</tr>
+        </thead>
+        <tbody>${zeilen}</tbody>
+      </table>
+    </div>
+    <p class="feld-hinweis">* Schätzwert aus dem Katalog – kein konkretes Angebot hinterlegt.</p>`;
+}
+
+const PLAN_ANSICHTEN: { id: PlanAnsicht; label: string }[] = [
+  { id: "liste", label: "Liste" },
+  { id: "zeitstrahl", label: "Zeitstrahl" },
+  { id: "tabelle", label: "Tabelle" },
+];
+
+function renderPlanAnsicht(plan: Plan): string {
+  const schalter = `
+    <div class="segmente" role="group" aria-label="Darstellung wählen">
+      ${PLAN_ANSICHTEN.map(
+        (a) =>
+          `<button type="button" data-planansicht="${a.id}" class="${zustand.planAnsicht === a.id ? "aktiv" : ""}">${a.label}</button>`,
+      ).join("")}
+    </div>`;
+  const inhalt =
+    zustand.planAnsicht === "zeitstrahl"
+      ? renderZeitstrahl(plan)
+      : zustand.planAnsicht === "tabelle"
+        ? renderPlanTabelle(plan)
+        : renderZeitachse(plan);
+  return `<div class="ansicht-kopf">${schalter}</div>${inhalt}`;
+}
+
 function renderTempoTabelle(): string {
   const standort = aktuellerStandort();
   const zeilen = [...TEMPO_OPTIONEN, null]
@@ -294,7 +428,7 @@ function renderErgebnis(): string {
     }
     ${aktiver.variante ? `<div class="hinweis-band">🔀 ${esc(aktiver.variante)}</div>` : ""}
     ${aktiver.beschreibung ? `<div class="hinweis-band leicht">${esc(aktiver.beschreibung)}</div>` : ""}
-    ${renderZeitachse(aktiver)}
+    ${renderPlanAnsicht(aktiver)}
     ${
       aktiver.externeVoraussetzungen.length > 0
         ? `
@@ -392,7 +526,16 @@ function render(): void {
     <main>
       ${
         zustand.tab === "netz"
-          ? `<section class="karte"><h2>Lehrgangsnetz</h2>${netzplanHtml}</section>`
+          ? `<section class="karte">
+               <h2>Lehrgangsnetz</h2>
+               <div class="ansicht-kopf">
+                 <div class="segmente" role="group" aria-label="Netzplan-Darstellung wählen">
+                   <button type="button" data-netzansicht="linien" class="${zustand.netzAnsicht === "linien" ? "aktiv" : ""}">Liniennetz</button>
+                   <button type="button" data-netzansicht="radial" class="${zustand.netzAnsicht === "radial" ? "aktiv" : ""}">Radial</button>
+                 </div>
+               </div>
+               <div id="netz-inhalt">${netzplanHtml(zustand.netzAnsicht)}</div>
+             </section>`
           : renderPlaner()
       }
     </main>
@@ -434,6 +577,42 @@ function impliziert(id: string): string[] {
   return [...erweitereVorhanden([id], byId)].filter((x) => byId.get(x)?.extern !== true);
 }
 
+/** Klick/Touch auf eine Netz-Station: Querverbindungen ein-/ausblenden. */
+function waehleNetzStation(station: SVGElement): void {
+  const svg = station.closest(".netz-svg")!;
+  const info = document.querySelector<HTMLDivElement>("#netz-info");
+  const warAktiv = station.classList.contains("ausgewaehlt");
+  for (const el of svg.querySelectorAll(".quer.sichtbar")) el.classList.remove("sichtbar");
+  for (const el of svg.querySelectorAll(".hervor")) el.classList.remove("hervor");
+  for (const el of svg.querySelectorAll(".ausgewaehlt")) el.classList.remove("ausgewaehlt");
+  if (warAktiv) {
+    if (info) {
+      info.textContent = "Keine Station ausgewählt.";
+      info.classList.add("leer");
+    }
+    return;
+  }
+  const id = station.dataset["id"]!;
+  station.classList.add("ausgewaehlt");
+  for (const kante of svg.querySelectorAll(
+    `.netz-kante[data-von="${CSS.escape(id)}"], .netz-kante[data-nach="${CSS.escape(id)}"]`,
+  )) {
+    kante.classList.add("hervor");
+    if (kante.classList.contains("quer")) kante.classList.add("sichtbar");
+  }
+  if (info) {
+    const kurs = byId.get(id)!;
+    const voraussetzungen = kurs.voraussetzungen
+      .map((v) => byId.get(v))
+      .filter((v) => v !== undefined)
+      .map((v) => (v!.nr !== "–" ? `${v!.nr} ${kurzTitel(v!, 30)}` : kurzTitel(v!, 30)));
+    info.classList.remove("leer");
+    info.innerHTML = `<strong>${esc(nummerTitel(id))}</strong>${
+      kurs.mindestalter != null ? ` · ab ${kurs.mindestalter} J.` : ""
+    } — Voraussetzungen: ${voraussetzungen.length > 0 ? esc(voraussetzungen.join(", ")) : "keine"}`;
+  }
+}
+
 document.querySelector<HTMLDivElement>("#app")!.addEventListener("click", (ev) => {
   const ziel = ev.target as HTMLElement;
   const tabKnopf = ziel.closest<HTMLElement>("[data-tab]");
@@ -441,6 +620,24 @@ document.querySelector<HTMLDivElement>("#app")!.addEventListener("click", (ev) =
     zustand.tab = tabKnopf.dataset["tab"] as "planer" | "netz";
     speichereZustand();
     render();
+    return;
+  }
+  const station = ziel.closest<SVGElement>(".netz-station");
+  if (station) {
+    waehleNetzStation(station);
+    return;
+  }
+  const netzAnsicht = ziel.closest<HTMLElement>("[data-netzansicht]");
+  if (netzAnsicht) {
+    zustand.netzAnsicht = netzAnsicht.dataset["netzansicht"] as NetzAnsicht;
+    speichereZustand();
+    render();
+    return;
+  }
+  const planAnsicht = ziel.closest<HTMLElement>("[data-planansicht]");
+  if (planAnsicht) {
+    zustand.planAnsicht = planAnsicht.dataset["planansicht"] as PlanAnsicht;
+    aktualisiereErgebnis();
     return;
   }
   const karte = ziel.closest<HTMLElement>("[data-szenario]");
