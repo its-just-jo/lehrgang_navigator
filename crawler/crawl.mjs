@@ -35,6 +35,7 @@ const quellenFilter = argv.includes("--quelle") ? argv[argv.indexOf("--quelle") 
 
 const quellenDatei = JSON.parse(readFileSync(join(HIER, "sources.json"), "utf8"));
 const mappingDatei = JSON.parse(readFileSync(join(HIER, "mapping.json"), "utf8"));
+const orteDatei = JSON.parse(readFileSync(join(HIER, "orte.json"), "utf8"));
 const katalog = JSON.parse(readFileSync(join(WURZEL, "data", "lehrgaenge.json"), "utf8"));
 const katalogIds = new Set(katalog.lehrgaenge.map((k) => k.id));
 
@@ -136,6 +137,20 @@ function extrahierePreis(text) {
   return Number.isFinite(wert) && wert >= 0 && wert <= 5000 ? wert : null;
 }
 
+function extrahiereOrt(text) {
+  const treffer = text.match(
+    /(?:Veranstaltungsort|Lehrgangsort|Tagungsort|Seminarort|Ort)\s*:?\s+([A-ZÄÖÜ][A-Za-zÄÖÜäöüß.\- ]{2,40}?)(?:\s{2,}|[,;|]|\s(?:am|vom|Beginn|Datum)\b|$)/,
+  );
+  if (!treffer) return null;
+  return treffer[1].trim().replace(/\s+/g, " ");
+}
+
+function koordinatenFuer(ort) {
+  if (!ort) return { lat: null, lon: null };
+  const eintrag = orteDatei.orte[ort.toLowerCase()];
+  return eintrag ?? { lat: null, lon: null };
+}
+
 function extrahiereTermine(text) {
   const termine = new Set();
   for (const treffer of text.matchAll(/\b(\d{1,2})\.(\d{1,2})\.(\d{4})\b/g)) {
@@ -185,11 +200,17 @@ async function verarbeiteQuelle(quelle) {
       unzugeordnet.push(titel);
       continue;
     }
+    const ort = extrahiereOrt(text);
+    const { lat, lon } = koordinatenFuer(ort);
     angebote.push({
       lehrgang_id: lehrgangId,
       titel,
       kosten: extrahierePreis(text),
       termine: extrahiereTermine(text),
+      ort,
+      gliederung: quelle.name,
+      lat,
+      lon,
       url: link,
       quelle: quelle.name,
     });
@@ -230,7 +251,11 @@ if (dryRun) {
   const ziel = join(WURZEL, "data", "angebote.json");
   writeFileSync(
     ziel,
-    JSON.stringify({ stand: new Date().toISOString().slice(0, 10), angebote: alleAngebote }, null, 2) + "\n",
+    JSON.stringify(
+      { stand: new Date().toISOString().slice(0, 10), beispiel: false, angebote: alleAngebote },
+      null,
+      2,
+    ) + "\n",
   );
   console.log(`\nGeschrieben: ${ziel}`);
 }

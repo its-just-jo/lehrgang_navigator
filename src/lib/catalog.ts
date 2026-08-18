@@ -4,7 +4,7 @@ export class KatalogFehler extends Error {}
 
 /**
  * Validiert den Katalog (referentielle Integrität) und liefert eine ID-Map.
- * Wirft KatalogFehler bei unbekannten Voraussetzungen, Duplikaten oder
+ * Wirft KatalogFehler bei unbekannten Verweisen, Duplikaten oder
  * Frische-Anforderungen ohne zugehörige Voraussetzung.
  */
 export function indiziereKatalog(katalog: Katalog): Map<string, Lehrgang> {
@@ -37,6 +37,22 @@ export function indiziereKatalog(katalog: Katalog): Map<string, Lehrgang> {
         );
       }
     }
+    for (const eid of kurs.ersetzt ?? []) {
+      if (!byId.has(eid)) {
+        throw new KatalogFehler(
+          `Lehrgang '${kurs.id}' will unbekannte Qualifikation '${eid}' ersetzen`,
+        );
+      }
+    }
+    for (const alternative of kurs.alternativen ?? []) {
+      for (const aid of alternative) {
+        if (!byId.has(aid)) {
+          throw new KatalogFehler(
+            `Lehrgang '${kurs.id}' nennt unbekannte Alternative '${aid}'`,
+          );
+        }
+      }
+    }
     if (!(kurs.kategorie in katalog.meta.kategorien)) {
       throw new KatalogFehler(
         `Lehrgang '${kurs.id}' hat unbekannte Kategorie '${kurs.kategorie}'`,
@@ -44,18 +60,4 @@ export function indiziereKatalog(katalog: Katalog): Map<string, Lehrgang> {
     }
   }
   return byId;
-}
-
-/** Liefert je aufzufrischender Qualifikation den günstigsten Auffrischungslehrgang. */
-export function auffrischungsIndex(katalog: Katalog): Map<string, Lehrgang> {
-  const index = new Map<string, Lehrgang>();
-  for (const kurs of katalog.lehrgaenge) {
-    for (const ziel of kurs.auffrischung_fuer ?? []) {
-      const bisher = index.get(ziel);
-      if (!bisher || (kurs.kosten ?? 0) < (bisher.kosten ?? 0)) {
-        index.set(ziel, kurs);
-      }
-    }
-  }
-  return index;
 }

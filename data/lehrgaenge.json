@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "DLRG Qualifikationen – Lehrgangskatalog",
-    "version": "2.0",
+    "version": "2.1",
     "stand": "2026-08",
     "quellen": [
       "PO Schwimmen/Rettungsschwimmen 13. Auflage, gültig ab 01.01.2025",
@@ -30,7 +30,8 @@
       "lehrscheine_medizin": "Lehrscheine Medizin",
       "trainer_lizenzen": "Trainer- & DOSB-Lizenzen",
       "system": "Externe Voraussetzungen"
-    }
+    },
+    "hinweis_ersetzt": "ersetzt: höherwertige Qualifikationen decken die genannten niedrigeren ab (z. B. erfüllt DRSA Silber jede Anforderung, die DRSA Bronze verlangt). alternativen: Listen von Lehrgangskombinationen, die diesen Lehrgang gleichwertig ersetzen (z. B. 182 + 183 statt des Kombi-Lehrschein-Lehrgangs 181)."
   },
   "lehrgaenge": [
     {
@@ -67,10 +68,15 @@
       "kategorie": "schwimmabzeichen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["121"],
+      "voraussetzungen": [
+        "121"
+      ],
       "lehreinheiten": 12,
       "kosten": 30,
-      "angebot": "jedes_halbjahr"
+      "angebot": "jedes_halbjahr",
+      "ersetzt": [
+        "121"
+      ]
     },
     {
       "id": "123",
@@ -80,10 +86,15 @@
       "kategorie": "schwimmabzeichen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["122"],
+      "voraussetzungen": [
+        "122"
+      ],
       "lehreinheiten": 15,
       "kosten": 30,
-      "angebot": "jedes_halbjahr"
+      "angebot": "jedes_halbjahr",
+      "ersetzt": [
+        "122"
+      ]
     },
     {
       "id": "141",
@@ -93,7 +104,9 @@
       "kategorie": "rettungsschwimmabzeichen",
       "mindestalter": 10,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["123"],
+      "voraussetzungen": [
+        "123"
+      ],
       "lehreinheiten": 16,
       "kosten": 25,
       "angebot": "jedes_halbjahr"
@@ -119,12 +132,19 @@
       "kategorie": "rettungsschwimmabzeichen",
       "mindestalter": 14,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["311_eh"],
+      "voraussetzungen": [
+        "311_eh"
+      ],
       "hinweis": "EH-Nachweis darf nicht älter als 2 Jahre sein",
-      "frische": { "311_eh": 2 },
+      "frische": {
+        "311_eh": 2
+      },
       "lehreinheiten": 16,
       "kosten": 60,
-      "angebot": "jedes_halbjahr"
+      "angebot": "jedes_halbjahr",
+      "ersetzt": [
+        "151"
+      ]
     },
     {
       "id": "153",
@@ -134,12 +154,21 @@
       "kategorie": "rettungsschwimmabzeichen",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["152", "311_eh"],
+      "voraussetzungen": [
+        "152",
+        "311_eh"
+      ],
       "hinweis": "DRSA Silber und EH-Nachweis müssen jeweils ≤ 2 Jahre alt sein",
-      "frische": { "152": 2, "311_eh": 2 },
+      "frische": {
+        "152": 2,
+        "311_eh": 2
+      },
       "lehreinheiten": 20,
       "kosten": 80,
-      "angebot": "jedes_halbjahr"
+      "angebot": "jedes_halbjahr",
+      "ersetzt": [
+        "152"
+      ]
     },
     {
       "id": "161",
@@ -149,7 +178,10 @@
       "kategorie": "rettungsschwimmabzeichen",
       "mindestalter": 12,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["151", "aerztl_tauchtauglichkeit"],
+      "voraussetzungen": [
+        "151",
+        "aerztl_tauchtauglichkeit"
+      ],
       "hinweis": "Ärztliche Tauchtauglichkeit ≤ 4 Wochen alt",
       "lehreinheiten": 12,
       "kosten": 60,
@@ -176,8 +208,12 @@
       "kategorie": "medizin",
       "mindestalter": null,
       "gueltigkeitsjahre": 2,
-      "voraussetzungen": ["311_eh"],
-      "auffrischung_fuer": ["311_eh"],
+      "voraussetzungen": [
+        "311_eh"
+      ],
+      "auffrischung_fuer": [
+        "311_eh"
+      ],
       "lehreinheiten": 9,
       "kosten": 40,
       "angebot": "jedes_halbjahr"
@@ -190,9 +226,13 @@
       "kategorie": "medizin",
       "mindestalter": 14,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["311_eh"],
+      "voraussetzungen": [
+        "311_eh"
+      ],
       "hinweis": "EH-Nachweis darf nicht älter als 3 Jahre sein",
-      "frische": { "311_eh": 3 },
+      "frische": {
+        "311_eh": 3
+      },
       "lehreinheiten": 32,
       "kosten": 130,
       "angebot": "jedes_halbjahr"
@@ -205,11 +245,18 @@
       "kategorie": "medizin",
       "mindestalter": 16,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["331"],
-      "frische": { "331": 4 },
+      "voraussetzungen": [
+        "331"
+      ],
+      "frische": {
+        "331": 4
+      },
       "lehreinheiten": 32,
       "kosten": 130,
-      "angebot": "jedes_halbjahr"
+      "angebot": "jedes_halbjahr",
+      "ersetzt": [
+        "331"
+      ]
     },
     {
       "id": "333",
@@ -219,8 +266,13 @@
       "kategorie": "medizin",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["331"],
-      "auffrischung_fuer": ["331", "332"],
+      "voraussetzungen": [
+        "331"
+      ],
+      "auffrischung_fuer": [
+        "331",
+        "332"
+      ],
       "lehreinheiten": 10,
       "kosten": 40,
       "angebot": "jedes_halbjahr"
@@ -233,7 +285,10 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": 12,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["dlrg_mitgliedschaft", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "dlrg_mitgliedschaft",
+        "aerztl_tauglichkeit"
+      ],
       "lehreinheiten": 22,
       "kosten": 60,
       "angebot": "jedes_halbjahr"
@@ -246,7 +301,10 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["401", "151"],
+      "voraussetzungen": [
+        "401",
+        "151"
+      ],
       "lehreinheiten": 5,
       "kosten": 25,
       "angebot": "jedes_halbjahr"
@@ -259,7 +317,9 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["401"],
+      "voraussetzungen": [
+        "401"
+      ],
       "lehreinheiten": 3,
       "kosten": 20,
       "angebot": "jedes_halbjahr"
@@ -272,7 +332,9 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["401"],
+      "voraussetzungen": [
+        "401"
+      ],
       "lehreinheiten": 5,
       "kosten": 25,
       "angebot": "jedes_halbjahr"
@@ -285,7 +347,9 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["401"],
+      "voraussetzungen": [
+        "401"
+      ],
       "lehreinheiten": 4,
       "kosten": 20,
       "angebot": "jedes_halbjahr"
@@ -298,9 +362,23 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["152", "311_eh", "331", "161", "401", "402", "403", "404", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "152",
+        "311_eh",
+        "331",
+        "161",
+        "401",
+        "402",
+        "403",
+        "404",
+        "aerztl_tauglichkeit"
+      ],
       "hinweis": "DRSA Silber und EH-Nachweis müssen ≤ 2 Jahre alt sein; San A ≤ 3 Jahre alt; Beginn ab 15 J. möglich",
-      "frische": { "152": 2, "311_eh": 2, "331": 3 },
+      "frische": {
+        "152": 2,
+        "331": 3,
+        "311_eh": 2
+      },
       "lehreinheiten": 28,
       "kosten": 150,
       "angebot": "jedes_halbjahr"
@@ -313,7 +391,9 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["411"],
+      "voraussetzungen": [
+        "411"
+      ],
       "lehreinheiten": 8,
       "kosten": 40,
       "angebot": "jaehrlich"
@@ -326,7 +406,9 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411"],
+      "voraussetzungen": [
+        "411"
+      ],
       "lehreinheiten": 8,
       "kosten": 80,
       "angebot": "jedes_halbjahr"
@@ -339,7 +421,12 @@
       "kategorie": "wasserrettungsdienst",
       "mindestalter": 18,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411", "421", "332", "711"],
+      "voraussetzungen": [
+        "411",
+        "421",
+        "332",
+        "711"
+      ],
       "lehreinheiten": 16,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -352,9 +439,16 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411", "331", "152", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "411",
+        "331",
+        "152",
+        "aerztl_tauglichkeit"
+      ],
       "hinweis": "DRSA Silber ≤ 2 Jahre; alternativ Module 401+402+403 statt vollem 411",
-      "frische": { "152": 2 },
+      "frische": {
+        "152": 2
+      },
       "lehreinheiten": 32,
       "kosten": 250,
       "angebot": "jedes_halbjahr"
@@ -367,7 +461,9 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1011"],
+      "voraussetzungen": [
+        "1011"
+      ],
       "lehreinheiten": 16,
       "kosten": 120,
       "angebot": "jaehrlich"
@@ -380,7 +476,10 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1011", "wildwasser_tauglichkeit_2"],
+      "voraussetzungen": [
+        "1011",
+        "wildwasser_tauglichkeit_2"
+      ],
       "lehreinheiten": 16,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -393,7 +492,10 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411", "152"],
+      "voraussetzungen": [
+        "411",
+        "152"
+      ],
       "hinweis": "Alternativ Module 401+402+403 statt vollem 411",
       "lehreinheiten": 16,
       "kosten": 150,
@@ -407,7 +509,10 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": 18,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1011", "1021"],
+      "voraussetzungen": [
+        "1011",
+        "1021"
+      ],
       "lehreinheiten": 24,
       "kosten": 200,
       "angebot": "jaehrlich"
@@ -420,7 +525,9 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1011"],
+      "voraussetzungen": [
+        "1011"
+      ],
       "lehreinheiten": 8,
       "kosten": 80,
       "angebot": "jaehrlich"
@@ -433,7 +540,12 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1011", "1021", "1022", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "1011",
+        "1021",
+        "1022",
+        "aerztl_tauglichkeit"
+      ],
       "lehreinheiten": 24,
       "kosten": 200,
       "angebot": "jaehrlich"
@@ -446,7 +558,9 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1028"],
+      "voraussetzungen": [
+        "1028"
+      ],
       "lehreinheiten": 16,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -459,7 +573,10 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1028", "1041"],
+      "voraussetzungen": [
+        "1028",
+        "1041"
+      ],
       "lehreinheiten": 40,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -472,7 +589,9 @@
       "kategorie": "stroemungsrettung",
       "mindestalter": 18,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411"],
+      "voraussetzungen": [
+        "411"
+      ],
       "lehreinheiten": 16,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -485,7 +604,10 @@
       "kategorie": "tauchen",
       "mindestalter": 18,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["dlrg_mitgliedschaft", "dguv_tauchtauglichkeit"],
+      "voraussetzungen": [
+        "dlrg_mitgliedschaft",
+        "dguv_tauchtauglichkeit"
+      ],
       "lehreinheiten": 16,
       "kosten": 80,
       "angebot": "jedes_halbjahr"
@@ -498,7 +620,12 @@
       "kategorie": "tauchen",
       "mindestalter": 15,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["161", "dguv_tauchtauglichkeit", "411", "711"],
+      "voraussetzungen": [
+        "161",
+        "dguv_tauchtauglichkeit",
+        "411",
+        "711"
+      ],
       "hinweis": "Einsatz im Wasser erst ab 18 J.; alternativ Module 401+403 statt vollem 411",
       "lehreinheiten": 60,
       "kosten": 400,
@@ -512,10 +639,17 @@
       "kategorie": "tauchen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["612", "411", "dguv_tauchtauglichkeit"],
+      "voraussetzungen": [
+        "612",
+        "411",
+        "dguv_tauchtauglichkeit"
+      ],
       "lehreinheiten": 45,
       "kosten": 350,
-      "angebot": "jaehrlich"
+      "angebot": "jaehrlich",
+      "ersetzt": [
+        "612"
+      ]
     },
     {
       "id": "614",
@@ -525,7 +659,12 @@
       "kategorie": "tauchen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["613", "711", "421", "dguv_tauchtauglichkeit"],
+      "voraussetzungen": [
+        "613",
+        "711",
+        "421",
+        "dguv_tauchtauglichkeit"
+      ],
       "lehreinheiten": 24,
       "kosten": 200,
       "angebot": "jaehrlich"
@@ -538,9 +677,16 @@
       "kategorie": "bootswesen",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["152", "411", "711", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "152",
+        "411",
+        "711",
+        "aerztl_tauglichkeit"
+      ],
       "hinweis": "Aushändigung erst ab 18 J.; DRSA Silber ≤ 2 Jahre; alternativ Module 401+402+404 statt vollem 411; ≥ 2 J. WRD-Mitarbeit, davon 1 J. Bootsdienst",
-      "frische": { "152": 2 },
+      "frische": {
+        "152": 2
+      },
       "lehreinheiten": 40,
       "kosten": 250,
       "angebot": "jaehrlich"
@@ -553,7 +699,10 @@
       "kategorie": "bootswesen",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["511", "aerztl_tauglichkeit"],
+      "voraussetzungen": [
+        "511",
+        "aerztl_tauglichkeit"
+      ],
       "lehreinheiten": 40,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -566,7 +715,9 @@
       "kategorie": "sprechfunk",
       "mindestalter": 12,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["dlrg_mitgliedschaft"],
+      "voraussetzungen": [
+        "dlrg_mitgliedschaft"
+      ],
       "lehreinheiten": 2,
       "kosten": 0,
       "angebot": "jedes_halbjahr"
@@ -579,7 +730,9 @@
       "kategorie": "sprechfunk",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["710"],
+      "voraussetzungen": [
+        "710"
+      ],
       "lehreinheiten": 8,
       "kosten": 40,
       "angebot": "jedes_halbjahr"
@@ -592,7 +745,9 @@
       "kategorie": "sprechfunk",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["landesrecht"],
+      "voraussetzungen": [
+        "landesrecht"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jaehrlich"
@@ -605,7 +760,9 @@
       "kategorie": "sprechfunk",
       "mindestalter": 16,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["landesrecht"],
+      "voraussetzungen": [
+        "landesrecht"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jaehrlich"
@@ -631,7 +788,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["401"],
+      "voraussetzungen": [
+        "401"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jedes_halbjahr"
@@ -644,7 +803,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["811"],
+      "voraussetzungen": [
+        "811"
+      ],
       "lehreinheiten": 16,
       "kosten": 50,
       "angebot": "jaehrlich"
@@ -657,7 +818,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["830"],
+      "voraussetzungen": [
+        "830"
+      ],
       "lehreinheiten": 35,
       "kosten": 100,
       "angebot": "jaehrlich"
@@ -670,7 +833,10 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["831", "421"],
+      "voraussetzungen": [
+        "831",
+        "421"
+      ],
       "lehreinheiten": 70,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -683,7 +849,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["832"],
+      "voraussetzungen": [
+        "832"
+      ],
       "lehreinheiten": 40,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -696,7 +864,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["832"],
+      "voraussetzungen": [
+        "832"
+      ],
       "lehreinheiten": 16,
       "kosten": 100,
       "angebot": "jaehrlich"
@@ -709,7 +879,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["832"],
+      "voraussetzungen": [
+        "832"
+      ],
       "lehreinheiten": 16,
       "kosten": 100,
       "angebot": "jaehrlich"
@@ -722,7 +894,9 @@
       "kategorie": "katastrophenschutz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["842"],
+      "voraussetzungen": [
+        "842"
+      ],
       "lehreinheiten": 16,
       "kosten": 100,
       "angebot": "jaehrlich"
@@ -735,9 +909,13 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": 15,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["151"],
+      "voraussetzungen": [
+        "151"
+      ],
       "hinweis": "DRSA Bronze ≤ 2 Jahre alt",
-      "frische": { "151": 2 },
+      "frische": {
+        "151": 2
+      },
       "lehreinheiten": 16,
       "kosten": 60,
       "angebot": "jedes_halbjahr"
@@ -750,9 +928,14 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": 15,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["152", "311_eh"],
+      "voraussetzungen": [
+        "152",
+        "311_eh"
+      ],
       "hinweis": "DRSA Silber ≤ 2 Jahre alt",
-      "frische": { "152": 2 },
+      "frische": {
+        "152": 2
+      },
       "lehreinheiten": 16,
       "kosten": 60,
       "angebot": "jedes_halbjahr"
@@ -765,7 +948,9 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["171"],
+      "voraussetzungen": [
+        "171"
+      ],
       "lehreinheiten": 30,
       "kosten": 120,
       "angebot": "jedes_halbjahr"
@@ -778,9 +963,17 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["171", "180", "152", "311_eh"],
+      "voraussetzungen": [
+        "171",
+        "180",
+        "152",
+        "311_eh"
+      ],
       "hinweis": "DRSA Silber und EH ≤ 2 Jahre; Beginn ab 17 J. möglich",
-      "frische": { "152": 2, "311_eh": 2 },
+      "frische": {
+        "152": 2,
+        "311_eh": 2
+      },
       "lehreinheiten": 40,
       "kosten": 180,
       "angebot": "jaehrlich"
@@ -793,8 +986,16 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["172", "180", "152", "311_eh"],
-      "frische": { "152": 2, "311_eh": 2 },
+      "voraussetzungen": [
+        "172",
+        "180",
+        "152",
+        "311_eh"
+      ],
+      "frische": {
+        "152": 2,
+        "311_eh": 2
+      },
       "lehreinheiten": 40,
       "kosten": 180,
       "angebot": "jaehrlich"
@@ -807,12 +1008,27 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["171", "172", "180", "152", "311_eh"],
+      "voraussetzungen": [
+        "171",
+        "172",
+        "180",
+        "152",
+        "311_eh"
+      ],
       "hinweis": "DRSA Silber und EH-Nachweis dürfen bei der Prüfung jeweils nicht älter als 2 Jahre sein",
-      "frische": { "152": 2, "311_eh": 2 },
+      "frische": {
+        "152": 2,
+        "311_eh": 2
+      },
       "lehreinheiten": 48,
       "kosten": 250,
-      "angebot": "jaehrlich"
+      "angebot": "jaehrlich",
+      "alternativen": [
+        [
+          "182",
+          "183"
+        ]
+      ]
     },
     {
       "id": "191",
@@ -822,7 +1038,10 @@
       "kategorie": "lehrscheine_schwimmen",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["181", "190_multi_schulung"],
+      "voraussetzungen": [
+        "181",
+        "190_multi_schulung"
+      ],
       "hinweis": "Berufung durch BV erforderlich",
       "lehreinheiten": 16,
       "kosten": 0,
@@ -836,7 +1055,11 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["411", "431", "180"],
+      "voraussetzungen": [
+        "411",
+        "431",
+        "180"
+      ],
       "lehreinheiten": 20,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -849,7 +1072,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["481", "190_multi_schulung"],
+      "voraussetzungen": [
+        "481",
+        "190_multi_schulung"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jaehrlich"
@@ -862,7 +1088,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["511", "180"],
+      "voraussetzungen": [
+        "511",
+        "180"
+      ],
       "lehreinheiten": 24,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -875,7 +1104,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["512", "591"],
+      "voraussetzungen": [
+        "512",
+        "591"
+      ],
       "lehreinheiten": 24,
       "kosten": 150,
       "angebot": "jaehrlich"
@@ -888,7 +1120,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["711", "180"],
+      "voraussetzungen": [
+        "711",
+        "180"
+      ],
       "lehreinheiten": 16,
       "kosten": 80,
       "angebot": "jaehrlich"
@@ -901,7 +1136,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["715", "180"],
+      "voraussetzungen": [
+        "715",
+        "180"
+      ],
       "lehreinheiten": 16,
       "kosten": 80,
       "angebot": "jaehrlich"
@@ -914,7 +1152,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["832", "180"],
+      "voraussetzungen": [
+        "832",
+        "180"
+      ],
       "lehreinheiten": 24,
       "kosten": 100,
       "angebot": "jaehrlich"
@@ -927,7 +1168,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1028", "180"],
+      "voraussetzungen": [
+        "1028",
+        "180"
+      ],
       "lehreinheiten": 24,
       "kosten": 200,
       "angebot": "jaehrlich"
@@ -940,7 +1184,10 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["1081", "1051"],
+      "voraussetzungen": [
+        "1081",
+        "1051"
+      ],
       "lehreinheiten": 24,
       "kosten": 200,
       "angebot": "jaehrlich"
@@ -953,7 +1200,11 @@
       "kategorie": "lehrscheine_einsatz",
       "mindestalter": null,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["613", "614", "dguv_tauchtauglichkeit"],
+      "voraussetzungen": [
+        "613",
+        "614",
+        "dguv_tauchtauglichkeit"
+      ],
       "lehreinheiten": 40,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -966,7 +1217,10 @@
       "kategorie": "lehrscheine_medizin",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["332", "180"],
+      "voraussetzungen": [
+        "332",
+        "180"
+      ],
       "lehreinheiten": 56,
       "kosten": 400,
       "angebot": "jaehrlich"
@@ -979,7 +1233,10 @@
       "kategorie": "lehrscheine_medizin",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["381", "332"],
+      "voraussetzungen": [
+        "381",
+        "332"
+      ],
       "lehreinheiten": 40,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -992,7 +1249,10 @@
       "kategorie": "lehrscheine_medizin",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["381", "190_multi_schulung"],
+      "voraussetzungen": [
+        "381",
+        "190_multi_schulung"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jaehrlich"
@@ -1005,7 +1265,10 @@
       "kategorie": "lehrscheine_medizin",
       "mindestalter": null,
       "gueltigkeitsjahre": null,
-      "voraussetzungen": ["382", "190_multi_schulung"],
+      "voraussetzungen": [
+        "382",
+        "190_multi_schulung"
+      ],
       "lehreinheiten": 16,
       "kosten": 0,
       "angebot": "jaehrlich"
@@ -1018,8 +1281,15 @@
       "kategorie": "trainer_lizenzen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["152", "311_eh", "180"],
-      "frische": { "152": 2, "311_eh": 2 },
+      "voraussetzungen": [
+        "152",
+        "311_eh",
+        "180"
+      ],
+      "frische": {
+        "152": 2,
+        "311_eh": 2
+      },
       "lehreinheiten": 90,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -1032,7 +1302,9 @@
       "kategorie": "trainer_lizenzen",
       "mindestalter": 20,
       "gueltigkeitsjahre": 3,
-      "voraussetzungen": ["trainer_c_leistung"],
+      "voraussetzungen": [
+        "trainer_c_leistung"
+      ],
       "lehreinheiten": 60,
       "kosten": 350,
       "angebot": "jaehrlich"
@@ -1045,7 +1317,10 @@
       "kategorie": "trainer_lizenzen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["171", "180"],
+      "voraussetzungen": [
+        "171",
+        "180"
+      ],
       "lehreinheiten": 90,
       "kosten": 300,
       "angebot": "jaehrlich"
@@ -1058,7 +1333,11 @@
       "kategorie": "trainer_lizenzen",
       "mindestalter": 18,
       "gueltigkeitsjahre": 4,
-      "voraussetzungen": ["uel_c_aqua", "152", "311_eh"],
+      "voraussetzungen": [
+        "uel_c_aqua",
+        "152",
+        "311_eh"
+      ],
       "lehreinheiten": 60,
       "kosten": 350,
       "angebot": "jaehrlich"
@@ -1071,7 +1350,9 @@
       "kategorie": "trainer_lizenzen",
       "mindestalter": 16,
       "gueltigkeitsjahre": 3,
-      "voraussetzungen": ["311_eh"],
+      "voraussetzungen": [
+        "311_eh"
+      ],
       "lehreinheiten": 40,
       "kosten": 80,
       "angebot": "jedes_halbjahr"

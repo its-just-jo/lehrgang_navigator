@@ -1,4 +1,4 @@
-export type Angebot = "jedes_halbjahr" | "jaehrlich";
+export type Angebotsfrequenz = "jedes_halbjahr" | "jaehrlich";
 
 export interface Lehrgang {
   id: string;
@@ -14,9 +14,13 @@ export interface Lehrgang {
   frische?: Record<string, number>;
   /** IDs von Qualifikationen, deren Gültigkeit dieser Lehrgang verlängert. */
   auffrischung_fuer?: string[];
+  /** Niedrigere Qualifikationen, die diese vollständig abdeckt (z. B. deckt DRSA Silber Bronze ab). */
+  ersetzt?: string[];
+  /** Gleichwertige Lehrgangskombinationen (z. B. 182 + 183 statt Kombi-Lehrgang 181). */
+  alternativen?: string[][];
   lehreinheiten: number | null;
   kosten: number | null;
-  angebot: Angebot;
+  angebot: Angebotsfrequenz;
   /** Externe Voraussetzung (Arztbesuch, Mitgliedschaft …) – wird nicht als Lehrgang eingeplant. */
   extern?: boolean;
 }
@@ -28,6 +32,7 @@ export interface KatalogMeta {
   quellen: string[];
   hinweis_kosten: string;
   hinweis_angebot: string;
+  hinweis_ersetzt?: string;
   kategorien: Record<string, string>;
 }
 
@@ -36,24 +41,53 @@ export interface Katalog {
   lehrgaenge: Lehrgang[];
 }
 
+/** Ein konkretes Lehrgangsangebot (Crawler-Ausgabe oder Beispieldaten). */
+export interface Angebot {
+  lehrgang_id: string;
+  titel: string;
+  kosten: number | null;
+  termine: string[];
+  ort: string | null;
+  gliederung: string | null;
+  lat: number | null;
+  lon: number | null;
+  url: string;
+  quelle: string;
+}
+
+export interface AngebotsDatei {
+  stand: string | null;
+  beispiel?: boolean;
+  hinweis?: string;
+  angebote: Angebot[];
+}
+
+export interface Standort {
+  name: string;
+  lat: number;
+  lon: number;
+}
+
 /** Ein Halbjahr im Kalender: halb 1 = Januar–Juni, halb 2 = Juli–Dezember. */
 export interface Halbjahr {
   jahr: number;
   halb: 1 | 2;
 }
 
+export type SzenarioId = "schnell" | "guenstig" | "komfort" | "fahrt" | "ausgewogen";
+
 export interface GeplanterKurs {
   kurs: Lehrgang;
   /** Slot-Index relativ zum Start-Halbjahr (0 = erstes Halbjahr des Plans). */
   slot: number;
-  /** true, wenn der Kurs nur zur Auffrischung einer ablaufenden Voraussetzung eingeplant wurde. */
-  auffrischung: boolean;
-  /** Menschlich lesbare Begründung für Auffrischungen. */
-  grund?: string;
+  /** Zugewiesenes Angebot; null = kein (passendes) Angebot, Schätzwert gilt. */
+  angebot: Angebot | null;
+  /** Einfache Entfernung vom Standort in km, falls berechenbar. */
+  entfernungKm: number | null;
 }
 
 export interface Plan {
-  strategie: "schnell" | "guenstig";
+  szenario: SzenarioId;
   kurse: GeplanterKurs[];
   /** kurse gruppiert nach Slot; Index = Slot. */
   slots: GeplanterKurs[][];
@@ -61,15 +95,29 @@ export interface Plan {
   dauerHalbjahre: number;
   kosten: number;
   lehreinheiten: number;
-  auffrischungen: GeplanterKurs[];
+  /** Summe der einfachen Entfernungen (nur Kurse mit bekannter Entfernung); null ohne Standort. */
+  fahrtKm: number | null;
+  /** Höchste Kurszahl in einem Halbjahr. */
+  maxProHalbjahr: number;
+  /** Beschreibung der gewählten Variante (z. B. getrennte Lehrgänge statt Kombi), sonst null. */
+  variante: string | null;
+  /** Zusatzinfo zur Optimierung (z. B. gewähltes Tempo im Ausgewogen-Szenario). */
+  beschreibung: string | null;
   warnungen: string[];
 }
 
 export interface PlanOptionen {
   zielIds: string[];
   vorhanden: Iterable<string>;
-  maxProHalbjahr: number;
   start: Halbjahr;
   /** Aktuelles Alter in Jahren; null/undefined = Mindestalter nicht prüfen. */
   alter?: number | null;
+  /** Wunsch-Tempo (max. Lehrgänge pro Halbjahr) für das Komfort-Szenario; null = egal. */
+  tempo?: number | null;
+  standort?: Standort | null;
+  /** Maximale einfache Entfernung zu Angeboten in km; null = egal. */
+  maxKm?: number | null;
+  angebote?: Angebot[];
 }
+
+export type PlanErgebnis = Record<SzenarioId, Plan>;

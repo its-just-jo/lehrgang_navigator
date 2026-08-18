@@ -1,9 +1,11 @@
 import { describe, expect, it } from "vitest";
 import katalogJson from "../../data/lehrgaenge.json";
-import { auffrischungsIndex, indiziereKatalog } from "../../src/lib/catalog";
-import type { Katalog } from "../../src/lib/types";
+import angeboteJson from "../../data/angebote.json";
+import { indiziereKatalog } from "../../src/lib/catalog";
+import type { AngebotsDatei, Katalog } from "../../src/lib/types";
 
 const katalog = katalogJson as unknown as Katalog;
+const angebote = angeboteJson as unknown as AngebotsDatei;
 
 describe("Lehrgangskatalog", () => {
   it("ist referentiell konsistent", () => {
@@ -28,12 +30,16 @@ describe("Lehrgangskatalog", () => {
     );
     expect(lehrschein!.frische).toEqual({ "152": 2, "311_eh": 2 });
     expect(lehrschein!.mindestalter).toBe(18);
+    // Der Kombi-Lehrgang ist selten – als Alternative gelten die getrennten
+    // Ausbilder-Lehrgänge Schwimmen (182) und Rettungsschwimmen (183).
+    expect(lehrschein!.alternativen).toEqual([["182", "183"]]);
   });
 
-  it("bietet eine Auffrischung für den Erste-Hilfe-Nachweis an", () => {
-    const auffrischer = auffrischungsIndex(katalog);
-    expect(auffrischer.get("311_eh")?.id).toBe("321_eh_fb");
-    expect(auffrischer.get("331")?.id).toBe("333");
+  it("modelliert die Abzeichen-Hierarchie über 'ersetzt'", () => {
+    const byId = indiziereKatalog(katalog);
+    expect(byId.get("152")!.ersetzt).toEqual(["151"]);
+    expect(byId.get("153")!.ersetzt).toEqual(["152"]);
+    expect(byId.get("332")!.ersetzt).toEqual(["331"]);
   });
 
   it("externe Voraussetzungen haben selbst keine Voraussetzungen", () => {
@@ -42,5 +48,21 @@ describe("Lehrgangskatalog", () => {
         expect(kurs.voraussetzungen, kurs.id).toEqual([]);
       }
     }
+  });
+
+  it("Beispiel-Angebote verweisen nur auf bekannte Lehrgänge und haben Ort + Gliederung", () => {
+    const byId = indiziereKatalog(katalog);
+    expect(angebote.angebote.length).toBeGreaterThan(0);
+    for (const angebot of angebote.angebote) {
+      expect(byId.has(angebot.lehrgang_id), angebot.titel).toBe(true);
+      expect(angebot.ort, angebot.titel).toBeTruthy();
+      expect(angebot.gliederung, angebot.titel).toBeTruthy();
+    }
+  });
+
+  it("der Kombi-Lehrgang 181 wird seltener angeboten als die getrennten 182/183", () => {
+    const anzahl = (id: string): number =>
+      angebote.angebote.filter((a) => a.lehrgang_id === id).length;
+    expect(anzahl("181")).toBeLessThan(anzahl("182") + anzahl("183"));
   });
 });

@@ -7,6 +7,21 @@
       "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+"
     },
     {
+      "name": "LV Württemberg",
+      "url": "https://wuerttemberg.dlrg.de/bildungswerk-wuerttemberg/seminare/",
+      "linkmuster": "/(bildungswerk[^\"']*|seminare?|lehrgaenge)/[^\"']+"
+    },
+    {
+      "name": "LV Baden",
+      "url": "https://baden.dlrg.de/lehrgaenge/",
+      "linkmuster": "/anmeldung/[^\"']+-s/?"
+    },
+    {
+      "name": "LV Bayern",
+      "url": "https://bayern.dlrg.de/fuer-mitglieder/landesschule/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung|landesschule)[^\"']*"
+    },
+    {
       "name": "LV Schleswig-Holstein",
       "url": "https://schleswig-holstein.dlrg.de/seminare-und-lehrgaenge/anmeldung/",
       "linkmuster": "/anmeldung/[^\"']+-s/?"

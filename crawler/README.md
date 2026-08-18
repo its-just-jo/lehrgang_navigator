@@ -23,8 +23,10 @@ Crawler-Lauf also einfach committen und neu deployen.
    Landesverbands-Seiten sind TYPO3-basiert und ähnlich aufgebaut, z. B.
    `https://schleswig-holstein.dlrg.de/seminare-und-lehrgaenge/anmeldung/<slug>-<nr>-s/`.
 2. Pro Detailseite werden Titel (`<h1>`), Preis (Beträge nahe Stichwörtern wie
-   „Teilnahmebeitrag“, „Lehrgangsgebühr“ …) und Termine (`TT.MM.JJJJ`) heuristisch
-   extrahiert.
+   „Teilnahmebeitrag“, „Lehrgangsgebühr“ …), Termine (`TT.MM.JJJJ`) und der Ort
+   (nahe „Veranstaltungsort“, „Lehrgangsort“ …) heuristisch extrahiert.
+   Koordinaten für die Entfernungsberechnung kommen aus `orte.json` –
+   unbekannte Orte dort einfach nachtragen.
 3. **`mapping.json`** ordnet Seminartitel per Regex den Katalog-IDs aus
    `data/lehrgaenge.json` zu. Die erste passende Regel gewinnt – speziellere
    Muster stehen deshalb oben. Nicht zuordenbare Titel listet das Skript am Ende

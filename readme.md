@@ -5,19 +5,26 @@ Vite + TypeScript, gehostet auf GitHub Pages, komplett ohne Server-Backend.
 
 Das Leit-Szenario: **Der Weg zum DLRG-Lehrschein (Ausbilder Schwimmen +
 Rettungsschwimmen, DOSB Trainer C).** Du wählst dein Ziel, hakst an, was du
-schon hast, und stellst ein, wie viele Lehrgänge pro Halbjahr für dich angenehm
-sind. Der Navigator berechnet daraus:
+schon hast (höherwertige Abzeichen decken niedrigere automatisch ab – DRSA
+Silber impliziert Bronze und Erste Hilfe), und wählst Standort, maximale
+Entfernung und Wunsch-Tempo. Der Navigator berechnet fünf gleichrangige
+Szenarien:
 
-- **den schnellsten Plan** – jeder Lehrgang so früh wie möglich,
-- **den günstigsten Plan** – gleiche Dauer, aber Lehrgänge so gelegt, dass
-  ablaufende Nachweise (z. B. „Erste Hilfe ≤ 2 Jahre bei der Prüfung“) frisch
-  bleiben und möglichst wenige Auffrischungslehrgänge nötig sind,
-- **eine Komfort-Übersicht** – was jede Stufe von 1–4 Lehrgängen pro Halbjahr
-  an Zeit und Geld kostet.
+- 🏃 **Schnellster** – jeder Lehrgang so früh wie möglich,
+- 💶 **Günstigster** – niedrigste Gesamtkosten (nutzt reale Angebotspreise und
+  legt Lehrgänge so, dass Nachweise wie „EH ≤ 2 Jahre“ frisch bleiben),
+- 🛋️ **Komfort** – im selbst gewählten Tempo (1–4 Lehrgänge pro Halbjahr oder
+  „egal“),
+- 🚗 **Wenig Fahrerei** – wählt die nächstgelegenen Angebote,
+- ⚖️ **Ausgewogen** – gleichgewichteter Kompromiss aus Dauer, Kosten,
+  Fahrstrecke und Belastung pro Halbjahr.
 
-Gültigkeitsfenster, jährliche vs. halbjährliche Angebotsfrequenz, Mindestalter
-und automatisch eingeplante Auffrischungen (EH-Fortbildung, Sanitätsfortbildung)
-sind Teil des Modells.
+Das Modell kennt Gültigkeitsfenster (als Warnung – Auffrischungen werden
+bewusst nicht eingeplant), jährliche vs. halbjährliche Angebotsfrequenz,
+Mindestalter, Ersetzungs-Hierarchien (`ersetzt`) und gleichwertige
+Lehrgangskombinationen (`alternativen`, z. B. getrennte Ausbilder-Lehrgänge
+182 + 183 statt des seltenen Kombi-Lehrgangs 181). Ein zweiter Tab zeigt das
+gesamte Lehrgangsnetz als vereinfachten U-Bahn-Plan.
 
 ## Entwicklung
 
@@ -41,13 +48,15 @@ Die Seite erscheint dann unter `https://<user>.github.io/lehrgang_navigator/`.
 ```
 data/lehrgaenge.json   Lehrgangskatalog (einzige Wahrheit): Voraussetzungen,
                        Frische-Anforderungen, Lehreinheiten, Kosten-Schätzwerte,
-                       Angebotsfrequenz, Auffrischungs-Beziehungen
-data/angebote.json     Reale Angebote (Preise/Termine) aus dem Crawler;
-                       überschreiben die Schätzwerte beim Build
+                       Angebotsfrequenz, ersetzt-Hierarchie, Alternativen
+data/angebote.json     Konkrete Angebote (Preis, Ort, Gliederung, Koordinaten);
+                       aktuell Beispieldaten, per Crawler ersetzbar
 src/lib/               Planungs-Engine (katalogunabhängig testbar):
-                       graph.ts (DFS, Toposort), planner.ts (Halbjahres-
-                       Scheduler ASAP/ALAP, Auffrischungslogik), angebote.ts
-src/main.ts            UI (Vanilla TS, kein Framework)
+                       graph.ts (DFS, Toposort, Ersetzungslogik), planner.ts
+                       (Halbjahres-Scheduler ASAP/ALAP, 5 Szenarien,
+                       Angebots-Zuordnung mit Entfernungsfilter)
+src/main.ts            UI (Vanilla TS, kein Framework, ISC-angelehntes Design)
+src/netzplan.ts        U-Bahn-Plan aller Lehrgänge (SVG)
 crawler/               Separates Node-Skript, das DLRG-Seminarseiten abruft
                        und data/angebote.json erzeugt (siehe crawler/README.md)
 tests/unit/            Vitest-Tests inkl. E2E-Szenario „Lehrschein“
