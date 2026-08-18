@@ -470,6 +470,47 @@ footer.fuss ul {
   padding-left: 1.2rem;
 }
 
+/* ─── Ansichts-Umschalter ─────────────────────────────────────── */
+
+.ansicht-kopf {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.9rem 0 0.4rem;
+}
+
+.segmente {
+  display: inline-flex;
+  border: 1px solid #b5b5b5;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.segmente button {
+  appearance: none;
+  border: none;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  border-right: 1px solid #d8d8d8;
+}
+
+.segmente button:last-child {
+  border-right: none;
+}
+
+.segmente button:hover {
+  background: #f4f4f4;
+}
+
+.segmente button.aktiv {
+  background: var(--dlrg-rot);
+  color: #fff;
+}
+
 /* ─── Netzplan ────────────────────────────────────────────────── */
 
 .netz-intro {
@@ -504,6 +545,53 @@ footer.fuss ul {
   border: 1px solid var(--linie);
   border-radius: 3px;
   background: #fcfcfc;
+  max-height: 80vh;
+}
+
+.netz-info {
+  font-size: 0.85rem;
+  border: 1px solid #c9dcee;
+  background: #f4f8fb;
+  border-radius: 3px;
+  padding: 0.45rem 0.75rem;
+  margin-bottom: 0.6rem;
+}
+
+.netz-info.leer {
+  color: var(--text-leise);
+  background: #f7f7f7;
+  border-color: var(--linie);
+}
+
+.netz-svg .netz-station {
+  cursor: pointer;
+}
+
+.netz-svg .netz-station:hover {
+  stroke-width: 5;
+}
+
+.netz-svg .netz-station.ausgewaehlt {
+  fill: var(--dlrg-gelb);
+  stroke-width: 5;
+}
+
+.netz-svg .quer {
+  display: none;
+}
+
+.netz-svg .quer.sichtbar {
+  display: inline;
+}
+
+.netz-svg .netz-kante.hervor {
+  opacity: 1;
+  stroke-width: 5;
+}
+
+.netz-svg .netz-kante.quer.hervor {
+  stroke-width: 2.4;
+  stroke: #4a6b84;
 }
 
 /* ─── Responsiv ───────────────────────────────────────────────── */

@@ -44,10 +44,27 @@ test("rendert den Lehrschein-Plan mit fünf Szenarien und reagiert auf Eingaben"
   await expect(ergebnis.locator(".kurs-chip", { hasText: "DRSA Silber" })).toHaveCount(0);
 
   // Tempo-Tabelle ist in einem horizontal scrollbaren Container.
-  await expect(page.locator(".tabellen-scroll table.tempo-tabelle")).toBeVisible();
+  await expect(page.locator(".tabellen-scroll table.tempo-tabelle").first()).toBeVisible();
 
-  // Netzplan-Tab zeigt den U-Bahn-Plan.
+  // Plan-Darstellung umschalten: Zeitstrahl (SVG) und Tabelle.
+  await page.locator('button[data-planansicht="zeitstrahl"]').click();
+  await expect(page.locator(".zeitstrahl svg")).toBeVisible();
+  await page.locator('button[data-planansicht="tabelle"]').click();
+  await expect(page.locator("table.plan-tabelle")).toBeVisible();
+  await expect(page.locator("table.plan-tabelle thead")).toContainText("Gliederung");
+  await page.locator('button[data-planansicht="liste"]').click();
+
+  // Netzplan-Tab: Querverbindungen sind erst nach Klick auf eine Station sichtbar.
   await page.locator('button[data-tab="netz"]').click();
   await expect(page.locator(".netz-scroll svg")).toBeVisible();
   await expect(page.locator(".netz-legende")).toContainText("Rettungsschwimmen");
+  await expect(page.locator(".netz-svg .quer.sichtbar")).toHaveCount(0);
+  // Station 411 (Wasserretter) hat linienübergreifende Voraussetzungen.
+  await page.locator('.netz-station[data-id="411"]').click();
+  expect(await page.locator(".netz-svg .quer.sichtbar").count()).toBeGreaterThan(0);
+  await expect(page.locator("#netz-info")).toContainText("Wasserretter");
+
+  // Radiale Ansicht umschalten.
+  await page.locator('button[data-netzansicht="radial"]').click();
+  await expect(page.locator(".netz-radial svg")).toBeVisible();
 });

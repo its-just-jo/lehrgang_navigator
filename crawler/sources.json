@@ -1,45 +1,119 @@
 {
-  "hinweis": "Seminar-/Lehrgangslisten der DLRG. 'url' ist die Listenseite, 'linkmuster' ein Regex (case-insensitive), mit dem Detailseiten-Links auf der Listenseite erkannt werden. Neue Landesverbände einfach ergänzen – die Seiten sind TYPO3-basiert und ähnlich aufgebaut.",
+  "hinweis": "Seminar-/Lehrgangslisten des Bundesverbands und aller 18 Landesverbände (Quelle der LV-Liste: dlrg.de → Die DLRG → Kontakt → Landesverbände). 'url' ist die Listenseite, 'linkmuster' ein Regex (case-insensitive) für Detailseiten-Links. Mit 'verifiziert': false markierte URLs sind plausible Standardpfade und ggf. nach dem ersten Lauf zu korrigieren – die Seiten sind TYPO3-basiert und nutzen meist das Seminarmodul (tx_dlrgseminare).",
   "quellen": [
     {
-      "name": "Bundesverband",
+      "name": "Bundesverband (Bundesakademie)",
       "url": "https://www.dlrg.de/fuer-mitglieder/lehrgaenge/",
-      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+"
-    },
-    {
-      "name": "LV Württemberg",
-      "url": "https://wuerttemberg.dlrg.de/bildungswerk-wuerttemberg/seminare/",
-      "linkmuster": "/(bildungswerk[^\"']*|seminare?|lehrgaenge)/[^\"']+"
+      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
       "name": "LV Baden",
       "url": "https://baden.dlrg.de/lehrgaenge/",
-      "linkmuster": "/anmeldung/[^\"']+-s/?"
+      "linkmuster": "/anmeldung/[^\"']+-s/?|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
-      "name": "LV Bayern",
+      "name": "LV Bayern (Landesschule)",
       "url": "https://bayern.dlrg.de/fuer-mitglieder/landesschule/lehrgaenge/",
-      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung|landesschule)[^\"']*"
+      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung|landesschule)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
-      "name": "LV Schleswig-Holstein",
-      "url": "https://schleswig-holstein.dlrg.de/seminare-und-lehrgaenge/anmeldung/",
-      "linkmuster": "/anmeldung/[^\"']+-s/?"
+      "name": "LV Berlin (Landesakademie)",
+      "url": "https://berlin.dlrg.de/mitmachen/fuer-mitglieder/landesakademie/",
+      "linkmuster": "/(landesakademie|lehrgaenge|seminare?|kurs)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
-      "name": "LV Nordrhein",
-      "url": "https://nordrhein.dlrg.de/fuer-mitglieder/lehrgaenge-und-veranstaltungen/",
-      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung)[^\"']*"
+      "name": "LV Brandenburg",
+      "url": "https://brandenburg.dlrg.de/informieren/lehrgaenge-und-kurse/",
+      "linkmuster": "/(lehrgaenge|seminare?|kurs)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Bremen",
+      "url": "https://bremen.dlrg.de/fuer-mitglieder/bildungsangebot/",
+      "linkmuster": "/(bildungsangebot|lehrgaenge|seminare?|kurs)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Hamburg",
+      "url": "https://hamburg.dlrg.de/fuer-mitglieder/seminar-kursangebot/",
+      "linkmuster": "/(seminar|kurs|lehrgaenge)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
       "name": "LV Hessen",
       "url": "https://hessen.dlrg.de/fuer-mitglieder/lehrgaenge/",
-      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+"
+      "linkmuster": "/(lehrgaenge|seminare?)/[^\"']+|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Mecklenburg-Vorpommern",
+      "url": "https://mecklenburg-vorpommern.dlrg.de/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Niedersachsen",
+      "url": "https://niedersachsen.dlrg.de/lehrgangsangebote-in-niedersachsen/",
+      "linkmuster": "/(lehrgang|lehrgaenge|seminare?)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Nordrhein",
+      "url": "https://nordrhein.dlrg.de/fuer-mitglieder/lehrgaenge-und-veranstaltungen/",
+      "linkmuster": "/(lehrgaenge|seminare?|veranstaltung)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
     },
     {
       "name": "LV Rheinland-Pfalz",
       "url": "https://rheinland-pfalz.dlrg.de/fuer-mitglieder/lehrgaenge-tagungen/",
-      "linkmuster": "/(lehrgaenge|seminare?|tagungen)[^\"']*"
+      "linkmuster": "/(lehrgaenge|seminare?|tagungen)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Saarland",
+      "url": "https://saarland.dlrg.de/fuer-mitglieder/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?|kurs)[^\"']*|tx_dlrgseminare",
+      "verifiziert": false
+    },
+    {
+      "name": "LV Sachsen",
+      "url": "https://sachsen.dlrg.de/lehrgaenge/",
+      "linkmuster": "/(lehrgaenge|seminare?|kurs)[^\"']*|tx_dlrgseminare",
+      "verifiziert": false
+    },
+    {
+      "name": "LV Sachsen-Anhalt",
+      "url": "https://sachsen-anhalt.dlrg.de/ausbildung/lehrgaenge/",
+      "linkmuster": "/(ausbildung|lehrgaenge|seminare?)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Schleswig-Holstein",
+      "url": "https://schleswig-holstein.dlrg.de/seminare-und-lehrgaenge/anmeldung/",
+      "linkmuster": "/anmeldung/[^\"']+-s/?|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Thüringen",
+      "url": "https://thueringen.dlrg.de/kurse-und-sicherheit/lehrgaenge/",
+      "linkmuster": "/(kurse|lehrgaenge|seminare?)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Westfalen",
+      "url": "https://westfalen.dlrg.de/lehrgaenge/gesamtuebersicht/",
+      "linkmuster": "/(lehrgaenge|seminare?|termine)[^\"']*|tx_dlrgseminare",
+      "verifiziert": true
+    },
+    {
+      "name": "LV Württemberg (Bildungswerk)",
+      "url": "https://wuerttemberg.dlrg.de/bildungswerk-wuerttemberg/seminare/",
+      "linkmuster": "/(bildungswerk[^\"']*|seminare?|lehrgaenge)/[^\"']+|tx_dlrgseminare",
+      "verifiziert": true
     }
   ]
 }

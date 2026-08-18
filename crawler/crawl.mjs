@@ -99,7 +99,10 @@ function extrahiereLinks(html, basisUrl, linkmuster) {
     }
     if (new URL(absolut).host !== new URL(basisUrl).host) continue;
     if (absolut === basisUrl) continue;
-    if (muster.test(absolut)) links.add(absolut.split("?")[0]);
+    if (!muster.test(absolut)) continue;
+    // Query-Parameter nur behalten, wenn sie das DLRG-Seminarmodul adressieren
+    // (dort steckt die Seminar-ID im Querystring); sonst normalisieren.
+    links.add(absolut.includes("tx_dlrgseminare") ? absolut : absolut.split("?")[0]);
   }
   return [...links];
 }
